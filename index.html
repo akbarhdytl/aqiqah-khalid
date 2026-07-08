@@ -307,6 +307,76 @@
             opacity: 0.5;
         }
 
+        /* ===== PROFIL KELAHIRAN ===== */
+        .profil-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .profil-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px 20px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        .profil-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(30, 77, 66, 0.08);
+        }
+        .profil-card .icon {
+            font-size: 2.4rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .profil-card .label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .profil-card .value {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        .profil-card .value-sub {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .profil-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+        }
+        @media (max-width: 480px) {
+            .profil-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .profil-card {
+                padding: 24px 12px 20px;
+            }
+            .profil-card .value {
+                font-size: 1.4rem;
+            }
+            .profil-card .icon {
+                font-size: 1.8rem;
+            }
+        }
+
         /* ===== AYAT / HADITS ===== */
         .ayat-section {
             background: var(--white);
@@ -681,6 +751,19 @@
             #opening .parents {
                 font-size: 1.2rem;
             }
+            .profil-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .profil-card {
+                padding: 20px 12px 16px;
+            }
+            .profil-card .value {
+                font-size: 1.3rem;
+            }
+            .profil-card .icon {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
@@ -695,7 +778,7 @@
             <div class="baby-name">Khalid Zayn Altair</div>
             <div class="parents">
                 Putra Pertama dari <br />
-                Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
+                Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span>Nadira Syerlie Nurhaliza
             </div>
             <button class="btn-open" id="btnOpen">Buka Undangan</button>
         </div>
@@ -731,6 +814,43 @@
             <div class="scroll-indicator">
                 <span>Gulir</span>
                 <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROFIL KELAHIRAN ===== -->
+    <section id="profil" style="background: var(--bg);">
+        <div class="container">
+            <div class="text-center fade-up">
+                <div class="section-sub">Profil Putra Pertama</div>
+                <h2 class="section-title">Data Kelahiran</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="profil-grid">
+                <div class="profil-card fade-up">
+                    <div class="icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="label">Tanggal Lahir</div>
+                    <div class="value">19 Juli 2026</div>
+                    <div class="value-sub">Masehi · 4 Dzulhijjah 1447 H</div>
+                </div>
+                <div class="profil-card fade-up">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <div class="label">Waktu Lahir</div>
+                    <div class="value">09.00 WIB</div>
+                    <div class="value-sub">pagi hari</div>
+                </div>
+                <div class="profil-card fade-up">
+                    <div class="icon"><i class="fas fa-weight-scale"></i></div>
+                    <div class="label">Berat Badan</div>
+                    <div class="value">3.200 gram</div>
+                    <div class="value-sub">3,2 kg</div>
+                </div>
+                <div class="profil-card fade-up">
+                    <div class="icon"><i class="fas fa-ruler"></i></div>
+                    <div class="label">Panjang Badan</div>
+                    <div class="value">49 cm</div>
+                    <div class="value-sub">saat lahir</div>
+                </div>
             </div>
         </div>
     </section>
@@ -812,7 +932,7 @@
                 </div>
             </div>
             <div class="text-center" style="margin-top: 8px;">
-                <a href="https://share.google/XzUBRn385tcdnNJWS" target="_blank" class="btn-map">
+                <a href="https://www.google.com/maps/dir//Shelby+Company+H28,+PH9G%2BH97,+Jl.+Raya+PLP+Curug,+Rancagong,+Curug,+Tangerang+Regency,+Banten+15820/@-6.2766717,106.570193,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x2e69fd0037c9544f:0x13944b613093738c!2m2!1d106.5759389!2d-6.2810649?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-map">
                     <i class="fas fa-location-dot" style="margin-right:10px;"></i> Buka Google Maps
                 </a>
             </div>
@@ -880,7 +1000,81 @@
     </footer>
 
     <!-- ===== JAVASCRIPT ===== -->
-    <script src="script.js"></script>
+    <script>
+        // ===== OPENING SCREEN =====
+        document.getElementById('btnOpen').addEventListener('click', function() {
+            document.getElementById('opening').classList.add('hide');
+            // Play music after opening
+            const music = document.getElementById('bgMusic');
+            music.play().catch(() => {});
+            const btn = document.getElementById('music-btn');
+            btn.classList.remove('paused');
+            document.getElementById('musicIcon').className = 'fas fa-pause';
+        });
+
+        // ===== MUSIC TOGGLE =====
+        const musicBtn = document.getElementById('music-btn');
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+
+        musicBtn.addEventListener('click', function() {
+            if (music.paused) {
+                music.play().catch(() => {});
+                this.classList.remove('paused');
+                musicIcon.className = 'fas fa-pause';
+            } else {
+                music.pause();
+                this.classList.add('paused');
+                musicIcon.className = 'fas fa-play';
+            }
+        });
+
+        // ===== COPY REKENING =====
+        document.getElementById('btnCopyRekening').addEventListener('click', function() {
+            const rekening = document.getElementById('rekeningDisplay').innerText;
+            navigator.clipboard.writeText(rekening).then(() => {
+                const feedback = document.getElementById('copyFeedback');
+                feedback.innerText = '✓ Nomor rekening berhasil disalin!';
+                feedback.style.color = 'var(--gold)';
+                this.classList.add('copied');
+                setTimeout(() => {
+                    feedback.innerText = '';
+                    this.classList.remove('copied');
+                }, 3000);
+            }).catch(() => {
+                // fallback
+                const range = document.createRange();
+                const selection = window.getSelection();
+                const el = document.getElementById('rekeningDisplay');
+                range.selectNodeContents(el);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                document.execCommand('copy');
+                const feedback = document.getElementById('copyFeedback');
+                feedback.innerText = '✓ Nomor rekening berhasil disalin!';
+                feedback.style.color = 'var(--gold)';
+                this.classList.add('copied');
+                setTimeout(() => {
+                    feedback.innerText = '';
+                    this.classList.remove('copied');
+                }, 3000);
+            });
+        });
+
+        // ===== INTERSECTION OBSERVER =====
+        const fadeEls = document.querySelectorAll('.fade-up, .fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+        fadeEls.forEach(el => observer.observe(el));
+
+        // ===== AUDIO AUTOPLAY (try) =====
+        // Will be triggered by opening button click
+    </script>
 
 </body>
 </html>
