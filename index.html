@@ -35,6 +35,7 @@
             --shadow: 0 20px 50px rgba(30, 77, 66, 0.08), 0 8px 20px rgba(0, 0, 0, 0.02);
             --radius: 24px;
             --transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --nav-height: 64px;
         }
         html {
             scroll-behavior: smooth;
@@ -79,6 +80,158 @@
         .font-arabic {
             font-family: 'Amiri', serif;
             font-weight: 400;
+        }
+
+        /* ===== MINI ELEGANT NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            background: rgba(250, 248, 242, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(201, 164, 76, 0.10);
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(250, 248, 242, 0.92);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        .navbar .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
+        .navbar .logo span {
+            color: var(--gold);
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .navbar .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text);
+            opacity: 0.55;
+            transition: opacity 0.3s, color 0.3s;
+            position: relative;
+        }
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .navbar .nav-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+        @media (max-width: 680px) {
+            .navbar {
+                padding: 0 16px;
+            }
+            .navbar .logo {
+                font-size: 1.1rem;
+            }
+            .navbar .nav-links {
+                gap: 14px;
+            }
+            .navbar .nav-links a {
+                font-size: 0.55rem;
+                letter-spacing: 1.2px;
+            }
+        }
+        @media (max-width: 480px) {
+            .navbar .nav-links {
+                gap: 10px;
+            }
+            .navbar .nav-links a {
+                font-size: 0.5rem;
+                letter-spacing: 0.8px;
+            }
+        }
+
+        /* ===== LIGHTBOX (IMAGE VIEWER) ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 40px;
+            cursor: zoom-out;
+        }
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox .lightbox-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            cursor: default;
+            transform: scale(0.92);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lightbox.active .lightbox-img {
+            transform: scale(1);
+        }
+        .lightbox .close-lightbox {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 2.4rem;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .lightbox .close-lightbox:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        @media (max-width: 600px) {
+            .lightbox {
+                padding: 16px;
+            }
+            .lightbox .close-lightbox {
+                top: 16px;
+                right: 20px;
+                font-size: 1.8rem;
+            }
         }
 
         /* ===== OPENING SCREEN ===== */
@@ -174,11 +327,11 @@
         /* ===== MUSIC BUTTON ===== */
         #music-btn {
             position: fixed;
-            top: 24px;
+            top: calc(var(--nav-height) + 16px);
             right: 24px;
             z-index: 1000;
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--white);
             border: none;
@@ -186,7 +339,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--primary);
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -209,7 +362,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 24px;
+            padding: calc(var(--nav-height) + 40px) 24px 40px;
             background: var(--bg);
             position: relative;
         }
@@ -260,8 +413,8 @@
             align-items: center;
             gap: 6px;
             color: var(--primary);
-            opacity: 0.5;
-            font-size: 0.8rem;
+            opacity: 0.4;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             animation: bounceDown 2s infinite;
         }
@@ -354,7 +507,6 @@
             color: #666;
             margin-top: 2px;
         }
-
         @media (max-width: 900px) {
             .profil-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -544,6 +696,7 @@
             position: relative;
             transition: transform 0.4s, box-shadow 0.4s;
             box-shadow: var(--shadow);
+            cursor: pointer;
         }
         .gallery-grid .gallery-item:nth-child(2) {
             grid-row: span 2;
@@ -559,12 +712,29 @@
             object-fit: cover;
             transition: transform 0.6s ease;
             display: block;
+            pointer-events: none;
         }
         .gallery-grid .gallery-item:hover img {
             transform: scale(1.06);
         }
         .gallery-grid .gallery-item:hover {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .gallery-grid .gallery-item .overlay-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            color: #fff;
+            font-size: 2.4rem;
+            pointer-events: none;
+        }
+        .gallery-grid .gallery-item:hover .overlay-icon {
+            opacity: 1;
         }
         @media (max-width: 768px) {
             .gallery-grid {
@@ -764,6 +934,13 @@
             .profil-card .icon {
                 font-size: 1.6rem;
             }
+            #music-btn {
+                top: calc(var(--nav-height) + 12px);
+                right: 12px;
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -778,11 +955,23 @@
             <div class="baby-name">Khalid Zayn Altair</div>
             <div class="parents">
                 Putra Pertama dari <br />
-                Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span>Nadira Syerlie Nurhaliza
+                Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
             </div>
             <button class="btn-open" id="btnOpen">Buka Undangan</button>
         </div>
     </div>
+
+    <!-- ===== MINI NAVBAR ===== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+        <div class="logo">Khalid <span>Zayn</span></div>
+        <ul class="nav-links">
+            <li><a href="#profil">Profil</a></li>
+            <li><a href="#makna">Makna</a></li>
+            <li><a href="#detail">Acara</a></li>
+            <li><a href="#galeri">Galeri</a></li>
+            <li><a href="#hadiah">Hadiah</a></li>
+        </ul>
+    </nav>
 
     <!-- ===== MUSIC BUTTON ===== -->
     <button id="music-btn" aria-label="Putar musik" class="paused">
@@ -793,6 +982,12 @@
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg" />
     </audio>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pembesar gambar">
+        <button class="close-lightbox" id="closeLightbox" aria-label="Tutup">&times;</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Gambar diperbesar" />
+    </div>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
@@ -932,7 +1127,7 @@
                 </div>
             </div>
             <div class="text-center" style="margin-top: 8px;">
-                <a href="https://www.google.com/maps/dir//Shelby+Company+H28,+PH9G%2BH97,+Jl.+Raya+PLP+Curug,+Rancagong,+Curug,+Tangerang+Regency,+Banten+15820/@-6.2766717,106.570193,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x2e69fd0037c9544f:0x13944b613093738c!2m2!1d106.5759389!2d-6.2810649?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-map">
+                <a href="https://share.google/XzUBRn385tcdnNJWS" target="_blank" class="btn-map">
                     <i class="fas fa-location-dot" style="margin-right:10px;"></i> Buka Google Maps
                 </a>
             </div>
@@ -943,17 +1138,35 @@
     <section id="galeri">
         <div class="container">
             <div class="text-center fade-up">
-                <div class="section-sub">Our Little</div>
-                <h2 class="section-title">Story</h2>
+                <div class="section-sub">Galeri</div>
+                <h2 class="section-title">Kenangan</h2>
                 <div class="section-divider"></div>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item fade-in"><img src="gallery1.jpg" alt="Galeri 1" loading="lazy" /></div>
-                <div class="gallery-item fade-in"><img src="gallery2.jpg" alt="Galeri 2" loading="lazy" /></div>
-                <div class="gallery-item fade-in"><img src="gallery3.jpg" alt="Galeri 3" loading="lazy" /></div>
-                <div class="gallery-item fade-in"><img src="gallery4.jpg" alt="Galeri 4" loading="lazy" /></div>
-                <div class="gallery-item fade-in"><img src="gallery5.jpg" alt="Galeri 5" loading="lazy" /></div>
-                <div class="gallery-item fade-in"><img src="gallery6.jpg" alt="Galeri 6" loading="lazy" /></div>
+                <div class="gallery-item fade-in" data-src="gallery1.jpg">
+                    <img src="gallery1.jpg" alt="Galeri 1" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item fade-in" data-src="gallery2.jpg">
+                    <img src="gallery2.jpg" alt="Galeri 2" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item fade-in" data-src="gallery3.jpg">
+                    <img src="gallery3.jpg" alt="Galeri 3" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item fade-in" data-src="gallery4.jpg">
+                    <img src="gallery4.jpg" alt="Galeri 4" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item fade-in" data-src="gallery5.jpg">
+                    <img src="gallery5.jpg" alt="Galeri 5" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item fade-in" data-src="gallery6.jpg">
+                    <img src="gallery6.jpg" alt="Galeri 6" loading="lazy" />
+                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                </div>
             </div>
         </div>
     </section>
@@ -1001,35 +1214,130 @@
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // ===== OPENING SCREEN =====
-        document.getElementById('btnOpen').addEventListener('click', function() {
-            document.getElementById('opening').classList.add('hide');
-            // Play music after opening
-            const music = document.getElementById('bgMusic');
-            music.play().catch(() => {});
-            const btn = document.getElementById('music-btn');
-            btn.classList.remove('paused');
-            document.getElementById('musicIcon').className = 'fas fa-pause';
-        });
-
-        // ===== MUSIC TOGGLE =====
-        const musicBtn = document.getElementById('music-btn');
+        // ============================================================
+        //  1. OPENING SCREEN
+        // ============================================================
+        const opening = document.getElementById('opening');
+        const btnOpen = document.getElementById('btnOpen');
         const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('music-btn');
         const musicIcon = document.getElementById('musicIcon');
 
+        let isMusicPlaying = false;
+
+        btnOpen.addEventListener('click', function() {
+            opening.classList.add('hide');
+            // Play music
+            music.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.remove('paused');
+                musicIcon.className = 'fas fa-pause';
+            }).catch(() => {});
+        });
+
+        // ============================================================
+        //  2. MUSIC TOGGLE
+        // ============================================================
         musicBtn.addEventListener('click', function() {
             if (music.paused) {
                 music.play().catch(() => {});
+                isMusicPlaying = true;
                 this.classList.remove('paused');
                 musicIcon.className = 'fas fa-pause';
             } else {
                 music.pause();
+                isMusicPlaying = false;
                 this.classList.add('paused');
                 musicIcon.className = 'fas fa-play';
             }
         });
 
-        // ===== COPY REKENING =====
+        // ============================================================
+        //  3. PAUSE MUSIC WHEN TAB NOT FOCUSED  (fix)
+        // ============================================================
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Tab is hidden → pause if playing
+                if (!music.paused) {
+                    music.pause();
+                    // Remember that we paused due to visibility
+                    music.dataset.wasPlaying = 'true';
+                    musicBtn.classList.add('paused');
+                    musicIcon.className = 'fas fa-play';
+                } else {
+                    music.dataset.wasPlaying = 'false';
+                }
+            } else {
+                // Tab is visible again → resume if it was playing before
+                if (music.dataset.wasPlaying === 'true') {
+                    music.play().catch(() => {});
+                    musicBtn.classList.remove('paused');
+                    musicIcon.className = 'fas fa-pause';
+                    music.dataset.wasPlaying = 'false';
+                }
+            }
+        });
+
+        // Also handle when user leaves the page (pagehide)
+        window.addEventListener('pagehide', function() {
+            if (!music.paused) {
+                music.pause();
+                music.dataset.wasPlaying = 'true';
+            }
+        });
+
+        // ============================================================
+        //  4. NAVBAR SCROLL EFFECT
+        // ============================================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================================
+        //  5. LIGHTBOX (IMAGE VIEWER)
+        // ============================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeLightbox = document.getElementById('closeLightbox');
+
+        // Open lightbox on gallery item click
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                const src = this.dataset.src;
+                if (src) {
+                    lightboxImg.src = src;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close lightbox
+        function closeLightboxFn() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closeLightbox.addEventListener('click', closeLightboxFn);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) closeLightboxFn();
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightboxFn();
+            }
+        });
+
+        // ============================================================
+        //  6. COPY REKENING
+        // ============================================================
         document.getElementById('btnCopyRekening').addEventListener('click', function() {
             const rekening = document.getElementById('rekeningDisplay').innerText;
             navigator.clipboard.writeText(rekening).then(() => {
@@ -1061,7 +1369,9 @@
             });
         });
 
-        // ===== INTERSECTION OBSERVER =====
+        // ============================================================
+        //  7. INTERSECTION OBSERVER (fade animations)
+        // ============================================================
         const fadeEls = document.querySelectorAll('.fade-up, .fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1071,9 +1381,6 @@
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
         fadeEls.forEach(el => observer.observe(el));
-
-        // ===== AUDIO AUTOPLAY (try) =====
-        // Will be triggered by opening button click
     </script>
 
 </body>
