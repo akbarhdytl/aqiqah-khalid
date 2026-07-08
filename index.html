@@ -706,7 +706,6 @@
     <!-- ===== AUDIO ===== -->
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg" />
-        <!-- fallback jika file tidak ada -->
     </audio>
 
     <!-- ===== HERO ===== -->
@@ -885,55 +884,121 @@
         (function() {
             'use strict';
 
-            // ----- OPENING -----
+            // DOM refs
             const opening = document.getElementById('opening');
             const btnOpen = document.getElementById('btnOpen');
             const audio = document.getElementById('bgMusic');
             const musicBtn = document.getElementById('music-btn');
             const musicIcon = document.getElementById('musicIcon');
 
-            // ----- BUKA UNDANGAN -----
+            // AudioContext & GainNode (for smooth fade)
+            let audioCtx = null;
+            let gainNode = null;
+            let source = null;
+
+            function initAudioContext() {
+                if (!audioCtx) {
+                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                    source = audioCtx.createMediaElementSource(audio);
+                    gainNode = audioCtx.createGain();
+                    source.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    gainNode.gain.value = 1;
+                }
+                // Resume context if suspended (important for autoplay policy)
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                return audioCtx;
+            }
+
+            // ----- BUKA UNDANGAN (with audio fix) -----
             btnOpen.addEventListener('click', function() {
+                // 1. Hide opening
                 opening.classList.add('hide');
-                // putar musik
-                audio.play().catch(() => {});
+
+                // 2. Init & resume AudioContext
+                initAudioContext();
+
+                // 3. Play music
+                audio.play().catch(function(err) {
+                    console.warn('Audio play failed:', err);
+                });
+
+                // 4. Update button UI
                 musicBtn.classList.remove('paused');
                 musicIcon.className = 'fas fa-pause';
-                // simpan state
-                localStorage.setItem('musicPlaying', 'true');
             });
 
-            // ----- MUSIC BUTTON -----
+            // ----- MUSIC BUTTON (toggle play/pause with fade) -----
             let isPlaying = false;
 
-            function toggleMusic() {
+            function fadeVolume(target, duration) {
+                duration = duration || 600;
+                if (!gainNode) return;
+                const start = gainNode.gain.value;
+                const startTime = audioCtx.currentTime;
+                const endTime = startTime + duration / 1000;
+
+                function update() {
+                    const now = audioCtx.currentTime;
+                    const progress = Math.min(1, (now - startTime) / (duration / 1000));
+                    const currentVal = start + (target - start) * progress;
+                    gainNode.gain.setValueAtTime(currentVal, audioCtx.currentTime);
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    }
+                }
+                update();
+            }
+
+            musicBtn.addEventListener('click', function() {
+                // Ensure context is initialized on user gesture
+                initAudioContext();
+
                 if (audio.paused) {
-                    audio.play().catch(() => {});
+                    // Play
+                    audio.play().catch(function(err) {
+                        console.warn('Audio play failed:', err);
+                    });
+                    fadeVolume(1, 500);
                     musicBtn.classList.remove('paused');
                     musicIcon.className = 'fas fa-pause';
                     isPlaying = true;
                 } else {
+                    // Pause with fade out
+                    fadeVolume(0, 400);
+                    setTimeout(function() {
+                        audio.pause();
+                        musicBtn.classList.add('paused');
+                        musicIcon.className = 'fas fa-play';
+                        isPlaying = false;
+                    }, 450);
+                }
+            });
+
+            // If page reloads while opening is hidden, ensure state matches
+            window.addEventListener('load', function() {
+                if (opening.classList.contains('hide')) {
+                    // If opening is hidden, music should be playing (or at least ready)
+                    // We check if audio is actually playing
+                    if (!audio.paused) {
+                        musicBtn.classList.remove('paused');
+                        musicIcon.className = 'fas fa-pause';
+                        // init context if needed
+                        if (!audioCtx) {
+                            initAudioContext();
+                        }
+                        if (gainNode) gainNode.gain.value = 1;
+                    } else {
+                        musicBtn.classList.add('paused');
+                        musicIcon.className = 'fas fa-play';
+                    }
+                } else {
+                    // Opening is visible, music should be paused/stopped
                     audio.pause();
                     musicBtn.classList.add('paused');
                     musicIcon.className = 'fas fa-play';
-                    isPlaying = false;
-                }
-            }
-
-            musicBtn.addEventListener('click', toggleMusic);
-
-            // cek state awal (jika opening sudah tertutup, music tetap sesuai)
-            // saat halaman dimuat, pastikan state konsisten
-            window.addEventListener('load', function() {
-                // jika opening sudah hide (misal reload), music tetap sesuai
-                if (opening.classList.contains('hide')) {
-                    if (audio.paused) {
-                        musicBtn.classList.add('paused');
-                        musicIcon.className = 'fas fa-play';
-                    } else {
-                        musicBtn.classList.remove('paused');
-                        musicIcon.className = 'fas fa-pause';
-                    }
                 }
             });
 
@@ -944,9 +1009,9 @@
 
             btnCopy.addEventListener('click', function() {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(rekeningText).then(() => {
+                    navigator.clipboard.writeText(rekeningText).then(function() {
                         showCopiedFeedback();
-                    }).catch(() => {
+                    }).catch(function() {
                         fallbackCopy();
                     });
                 } else {
@@ -975,7 +1040,7 @@
                 btnCopy.classList.add('copied');
                 btnCopy.innerHTML = '<i class="fas fa-check" style="margin-right:10px;"></i> ✓ Nomor Rekening Disalin';
                 feedback.textContent = '';
-                setTimeout(() => {
+                setTimeout(function() {
                     btnCopy.classList.remove('copied');
                     btnCopy.innerHTML = '<i class="fas fa-copy" style="margin-right:10px;"></i> Salin Nomor Rekening';
                 }, 3000);
@@ -988,20 +1053,19 @@
             };
 
             const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // jika sudah terlihat, tidak perlu observe lagi
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.fade-up, .fade-in').forEach(el => {
+            document.querySelectorAll('.fade-up, .fade-in').forEach(function(el) {
                 observer.observe(el);
             });
 
-            // ----- PARALLAX RINGAN (scroll hero) -----
+            // ----- PARALLAX RINGAN (hero) -----
             const hero = document.querySelector('.hero');
             window.addEventListener('scroll', function() {
                 const offset = window.pageYOffset;
@@ -1010,8 +1074,8 @@
                 }
             }, { passive: true });
 
-            // ----- SMOOTH SCROLL UNTUK ANCHOR (jika ada) -----
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // ----- SMOOTH SCROLL for anchors -----
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href === '#') return;
@@ -1021,91 +1085,6 @@
                         target.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
-            });
-
-            // ----- MUSIK FADE IN/OUT (saat play/pause) -----
-            // efek fade sederhana dengan gain node
-            let audioCtx = null;
-            let gainNode = null;
-            let source = null;
-
-            // Inisialisasi AudioContext saat interaksi pertama dengan audio
-            function initAudioContext() {
-                if (!audioCtx) {
-                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                    source = audioCtx.createMediaElementSource(audio);
-                    gainNode = audioCtx.createGain();
-                    source.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    gainNode.gain.value = 1;
-                }
-            }
-
-            // Fungsi fade (untuk transisi halus)
-            function fadeVolume(target, duration = 600) {
-                if (!gainNode) return;
-                const start = gainNode.gain.value;
-                const startTime = audioCtx.currentTime;
-                const endTime = startTime + duration / 1000;
-
-                function update() {
-                    const now = audioCtx.currentTime;
-                    const progress = Math.min(1, (now - startTime) / (duration / 1000));
-                    const currentVal = start + (target - start) * progress;
-                    gainNode.gain.setValueAtTime(currentVal, audioCtx.currentTime);
-                    if (progress < 1) {
-                        requestAnimationFrame(update);
-                    }
-                }
-                update();
-            }
-
-            // override toggleMusic dengan fade
-            const originalToggle = toggleMusic;
-            toggleMusic = function() {
-                if (!audioCtx) {
-                    initAudioContext();
-                }
-                if (audio.paused) {
-                    audio.play().catch(() => {});
-                    musicBtn.classList.remove('paused');
-                    musicIcon.className = 'fas fa-pause';
-                    fadeVolume(1);
-                    isPlaying = true;
-                } else {
-                    fadeVolume(0, 400);
-                    setTimeout(() => {
-                        audio.pause();
-                        musicBtn.classList.add('paused');
-                        musicIcon.className = 'fas fa-play';
-                        isPlaying = false;
-                    }, 450);
-                }
-            };
-
-            // update event listener
-            musicBtn.removeEventListener('click', originalToggle);
-            musicBtn.addEventListener('click', toggleMusic);
-
-            // inisialisasi audio context saat tombol buka ditekan (sebelumnya sudah ada)
-            // kita tambahkan inisialisasi di btnOpen
-            btnOpen.addEventListener('click', function() {
-                if (!audioCtx) {
-                    initAudioContext();
-                }
-                // pastikan gain 1
-                if (gainNode) gainNode.gain.value = 1;
-                // play sudah dipanggil sebelumnya
-            });
-
-            // saat halaman dimuat, jika opening sudah hide (reload) dan audio playing, inisialisasi ctx
-            window.addEventListener('load', function() {
-                if (opening.classList.contains('hide') && !audio.paused) {
-                    if (!audioCtx) {
-                        initAudioContext();
-                        if (gainNode) gainNode.gain.value = 1;
-                    }
-                }
             });
 
         })();
