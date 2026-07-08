@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
         /* ===== RESET & VARIABLES ===== */
         * {
@@ -627,17 +630,6 @@
             opacity: 1;
         }
 
-        /* ===== YOUTUBE PLAYER (hidden) ===== */
-        #youtube-player {
-            position: fixed;
-            bottom: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             #opening .baby-name {
@@ -714,8 +706,10 @@
         <i class="fas fa-play" id="musicIcon"></i>
     </button>
 
-    <!-- ===== YOUTUBE PLAYER (hidden) ===== -->
-    <div id="youtube-player"></div>
+    <!-- ===== AUDIO ===== -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg" />
+    </audio>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
@@ -885,206 +879,8 @@
         </div>
     </footer>
 
-    <!-- ===== FONT AWESOME ===== -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <!-- ===== YOUTUBE IFrame API ===== -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-
     <!-- ===== JAVASCRIPT ===== -->
-    <script>
-        (function() {
-            'use strict';
-
-            // DOM refs
-            const opening = document.getElementById('opening');
-            const btnOpen = document.getElementById('btnOpen');
-            const musicBtn = document.getElementById('music-btn');
-            const musicIcon = document.getElementById('musicIcon');
-
-            // YouTube player
-            let player = null;
-            let playerReady = false;
-            let isPlaying = false;
-
-            // ----- YouTube IFrame API callback -----
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player('youtube-player', {
-                    height: '1',
-                    width: '1',
-                    videoId: 'WbkooeqB7wQ',
-                    playerVars: {
-                        autoplay: 0,
-                        loop: 1,
-                        playlist: 'WbkooeqB7wQ',
-                        controls: 0,
-                        disablekb: 1,
-                        modestbranding: 1,
-                        rel: 0,
-                        showinfo: 0,
-                        iv_load_policy: 3,
-                        enablejsapi: 1,
-                        origin: window.location.origin
-                    },
-                    events: {
-                        onReady: function() {
-                            playerReady = true;
-                            // If opening is already hidden (reload), start playing
-                            if (opening.classList.contains('hide')) {
-                                player.playVideo();
-                                musicBtn.classList.remove('paused');
-                                musicIcon.className = 'fas fa-pause';
-                                isPlaying = true;
-                            }
-                        },
-                        onStateChange: function(event) {
-                            // Update button state when video ends or pauses
-                            if (event.data === YT.PlayerState.ENDED) {
-                                // Loop handled by playlist param
-                            }
-                            if (event.data === YT.PlayerState.PAUSED) {
-                                musicBtn.classList.add('paused');
-                                musicIcon.className = 'fas fa-play';
-                                isPlaying = false;
-                            }
-                            if (event.data === YT.PlayerState.PLAYING) {
-                                musicBtn.classList.remove('paused');
-                                musicIcon.className = 'fas fa-pause';
-                                isPlaying = true;
-                            }
-                        }
-                    }
-                });
-            };
-
-            // Fallback: if API already loaded
-            if (typeof YT !== 'undefined' && YT.Player) {
-                window.onYouTubeIframeAPIReady();
-            }
-
-            // ----- BUKA UNDANGAN -----
-            btnOpen.addEventListener('click', function() {
-                // 1. Hide opening
-                opening.classList.add('hide');
-
-                // 2. Play YouTube video
-                if (playerReady && player) {
-                    player.playVideo();
-                } else {
-                    // If player not ready, wait for it
-                    const checkReady = setInterval(function() {
-                        if (playerReady && player) {
-                            player.playVideo();
-                            clearInterval(checkReady);
-                        }
-                    }, 200);
-                }
-
-                // 3. Update button UI
-                musicBtn.classList.remove('paused');
-                musicIcon.className = 'fas fa-pause';
-                isPlaying = true;
-            });
-
-            // ----- MUSIC BUTTON (toggle play/pause) -----
-            musicBtn.addEventListener('click', function() {
-                if (!playerReady || !player) return;
-
-                if (isPlaying) {
-                    player.pauseVideo();
-                } else {
-                    player.playVideo();
-                }
-                // State will be updated by onStateChange event
-            });
-
-            // ----- COPY REKENING (CLIPBOARD API) -----
-            const btnCopy = document.getElementById('btnCopyRekening');
-            const rekeningText = document.getElementById('rekeningDisplay').innerText;
-            const feedback = document.getElementById('copyFeedback');
-
-            btnCopy.addEventListener('click', function() {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(rekeningText).then(function() {
-                        showCopiedFeedback();
-                    }).catch(function() {
-                        fallbackCopy();
-                    });
-                } else {
-                    fallbackCopy();
-                }
-            });
-
-            function fallbackCopy() {
-                const textArea = document.createElement('textarea');
-                textArea.value = rekeningText;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCopiedFeedback();
-                } catch (err) {
-                    feedback.textContent = 'Gagal menyalin, silakan salin manual.';
-                    feedback.style.color = '#b33c3c';
-                }
-                document.body.removeChild(textArea);
-            }
-
-            function showCopiedFeedback() {
-                btnCopy.classList.add('copied');
-                btnCopy.innerHTML = '<i class="fas fa-check" style="margin-right:10px;"></i> ✓ Nomor Rekening Disalin';
-                feedback.textContent = '';
-                setTimeout(function() {
-                    btnCopy.classList.remove('copied');
-                    btnCopy.innerHTML = '<i class="fas fa-copy" style="margin-right:10px;"></i> Salin Nomor Rekening';
-                }, 3000);
-            }
-
-            // ----- INTERSECTION OBSERVER (fade-up, fade-in) -----
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -30px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.fade-up, .fade-in').forEach(function(el) {
-                observer.observe(el);
-            });
-
-            // ----- PARALLAX RINGAN (hero) -----
-            const hero = document.querySelector('.hero');
-            window.addEventListener('scroll', function() {
-                const offset = window.pageYOffset;
-                if (offset < window.innerHeight) {
-                    hero.style.backgroundPositionY = offset * 0.3 + 'px';
-                }
-            }, { passive: true });
-
-            // ----- SMOOTH SCROLL for anchors -----
-            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href === '#') return;
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-        })();
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
