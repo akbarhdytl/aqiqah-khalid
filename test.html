@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undangan Aqiqah - Keluarga Bahagia</title>
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f6b4a;
+            --primary-light: #1a8a61;
+            --primary-dark: #0a4d34;
+            --gold: #c9a84c;
+            --gold-light: #e8d5a3;
+            --cream: #fbf6ed;
+            --text-dark: #1e2b2a;
+            --text-muted: #5a6e6b;
+            --white: #ffffff;
+            --shadow: 0 12px 40px rgba(15, 107, 74, 0.12);
+            --radius: 20px;
+            --transition: 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        h2 .highlight {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .section-divider {
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            margin: 14px auto 24px;
+            border-radius: 4px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 42px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 6px 20px rgba(15, 107, 74, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(15, 107, 74, 0.4);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
+        }
+
+        .btn-gold:hover {
+            background: #b8942e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(201, 168, 76, 0.45);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* ===== HERO / HEADER ===== */
+        .hero {
+            background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+            padding: 60px 0 70px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--cream);
+            clip-path: ellipse(70% 100% at 50% 100%);
+        }
+
+        .hero .ornament {
+            font-size: 2.6rem;
+            letter-spacing: 12px;
+            color: var(--gold-light);
+            opacity: 0.6;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .hero h1 .gold {
+            color: var(--gold-light);
+        }
+
+        .hero .sub-title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .hero .baby-name {
+            font-size: 2.2rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-light);
+            margin: 12px 0 6px;
+        }
+
+        .hero .event-date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            padding: 10px 30px;
+            border-radius: 50px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero .event-date-badge i {
+            margin-right: 10px;
+            color: var(--gold-light);
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            padding: 30px 0 10px;
+            background: var(--cream);
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: var(--white);
+            padding: 16px 28px;
+            border-radius: 16px;
+            min-width: 90px;
+            box-shadow: var(--shadow);
+        }
+
+        .countdown-item .number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .countdown-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== SECTION ===== */
+        section {
+            padding: 70px 0;
+        }
+
+        .section-alt {
+            background: var(--white);
+        }
+
+        .section-center {
+            text-align: center;
+        }
+
+        /* ===== ABOUT AQIQAH ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 18px;
+        }
+
+        .about-text .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--primary);
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--gold-light), var(--cream));
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image .icon-big {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .about-image h3 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+        }
+
+        .about-image p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ===== EVENT DETAILS ===== */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .detail-card {
+            background: var(--white);
+            padding: 34px 24px 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-6px);
+            border-bottom-color: var(--gold);
+        }
+
+        .detail-card .icon {
+            font-size: 2.6rem;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .detail-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .detail-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .detail-card .address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .detail-card .address i {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+
+        /* ===== MAP PLACEHOLDER ===== */
+        .map-placeholder {
+            margin-top: 30px;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .map-placeholder iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .map-placeholder .map-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .map-placeholder .map-link i {
+            margin-right: 6px;
+        }
+
+        .map-placeholder .map-link:hover {
+            color: var(--gold);
+        }
+
+        /* ===== RSVP FORM ===== */
+        .rsvp-wrapper {
+            max-width: 680px;
+            margin: 30px auto 0;
+            background: var(--white);
+            padding: 44px 48px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #d9534f;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 18px;
+            border: 2px solid #e8eceb;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--cream);
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .form-submit .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+        }
+
+        .form-message {
+            margin-top: 18px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #e6f7ee;
+            color: #0f6b4a;
+            border: 1px solid #b8e0cc;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fde8e8;
+            color: #b33c3c;
+            border: 1px solid #f5c2c2;
+        }
+
+        /* ===== DOA & HARAPAN ===== */
+        .doa-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px 44px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--gold);
+        }
+
+        .doa-box .doa-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.9;
+        }
+
+        .doa-box .doa-text .arabic {
+            font-size: 1.6rem;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .doa-box .doa-source {
+            margin-top: 14px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.75);
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        footer .footer-logo {
+            font-size: 1.6rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-light);
+            margin-bottom: 6px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        footer .social-links {
+            margin: 16px 0 12px;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        footer .social-links a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.4rem;
+            transition: var(--transition);
+        }
+
+        footer .social-links a:hover {
+            color: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        footer .credit {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 12px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero .baby-name {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 44px 0 56px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .baby-name {
+                font-size: 1.5rem;
+            }
+
+            .hero .ornament {
+                font-size: 1.8rem;
+                letter-spacing: 8px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 50px 0;
+            }
+
+            .rsvp-wrapper {
+                padding: 28px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .countdown-grid {
+                gap: 14px;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 12px 16px;
+            }
+
+            .countdown-item .number {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .doa-box {
+                padding: 28px 20px;
+            }
+
+            .doa-box .doa-text .arabic {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero .sub-title {
+                font-size: 1rem;
+            }
+
+            .hero .event-date-badge {
+                font-size: 0.8rem;
+                padding: 8px 20px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px 12px;
+            }
+
+            .countdown-item .number {
+                font-size: 1.6rem;
+            }
+
+            .map-placeholder iframe {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero" id="home">
+        <div class="container">
+            <div class="ornament">✦ ✦ ✦</div>
+            <p class="sub-title">Dengan memohon rahmat dan ridha Allah SWT</p>
+            <h1>
+                Kami Mengundang<br />
+                <span class="gold">Aqiqah</span>
+            </h1>
+            <p class="baby-name">— Putra / Putri tercinta —</p>
+            <p style="font-size:1.5rem; font-weight:600; color:var(--gold-light); margin:2px 0 4px;">
+                Ahmad Al-Ghifari
+            </p>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.95rem; letter-spacing:1px;">
+                Anak dari Bapak &amp; Ibu <strong style="color:#fff;">Rizky &amp; Nabila</strong>
+            </p>
+            <div class="event-date-badge">
+                <i class="fas fa-calendar-alt"></i> Ahad, 26 Juli 2026 &nbsp;|&nbsp; <i class="fas fa-clock"></i> 09.00 – 12.00 WIB
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== COUNTDOWN ===== -->
+    <section class="countdown-section" style="padding-top:10px; padding-bottom:20px;">
+        <div class="container">
+            <div class="countdown-grid" id="countdown">
+                <div class="countdown-item">
+                    <div class="number" id="days">00</div>
+                    <div class="label">Hari</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="hours">00</div>
+                    <div class="label">Jam</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="minutes">00</div>
+                    <div class="label">Menit</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="seconds">00</div>
+                    <div class="label">Detik</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT AQIQAH ===== -->
+    <section id="tentang">
+        <div class="container">
+            <div class="section-center">
+                <p class="section-subtitle">Tentang Acara</p>
+                <h2>Makna <span class="highlight">Aqiqah</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Aqiqah adalah wujud syukur kepada Allah SWT atas karunia seorang anak.
+                        Dengan menyembelih kambing, kita meneladani sunnah Nabi Ibrahim AS dan
+                        memohon perlindungan bagi sang buah hati.
+                    </p>
+                    <div class="quote">
+                        “Setiap anak tergadai dengan aqiqahnya, disembelihkan untuknya pada hari ketujuh,
+                        dicukur rambutnya, dan diberi nama.”
+                        <br /><span style="font-style:normal; font-weight:600; color:var(--primary);">— HR. Abu Dawud &amp; Tirmidzi</span>
+                    </div>
+                    <p>
+                        Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan mendoakan
+                        keselamatan, kesehatan, serta keberkahan untuk putra kami.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <div class="icon-big"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Alhamdulillah</h3>
+                    <p>Atas karunia dan rahmat-Nya, kami sekeluarga <br />dapat menyelenggarakan aqiqah ini.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EVENT DETAILS ===== -->
+    <section id="detail" class="section-alt">
+        <div class="container">
+            <div class="section-center">
+                <p class="section-subtitle">Detail Acara</p>
+                <h2>Informasi <span class="highlight">Lengkap</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="icon"><i class="fas fa-calendar-day"></i></div>
+                    <h4>Hari &amp; Tanggal</h4>
+                    <p><strong>Ahad, 26 Juli 2026</strong></p>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">(7 hari setelah kelahiran)</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h4>Waktu</h4>
+                    <p><strong>09.00 – 12.00 WIB</strong></p>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">Acara dimulai tepat pukul 09.00</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon"><i class="fas fa-map-pin"></i></div>
+                    <h4>Tempat</h4>
+                    <p><strong>Rumah Keluarga</strong></p>
+                    <div class="address">
+                        <i class="fas fa-location-dot"></i> Jl. Merpati No. 27, RT 03/RW 05<br />
+                        Kelurahan Harmoni, Kec. Damai<br />
+                        Kota Bahagia, 12345
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="icon"><i class="fas fa-utensils"></i></div>
+                    <h4>Hidangan</h4>
+                    <p>Nasi kotak &amp; kue kering</p>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">Disediakan untuk semua tamu</p>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-placeholder">
+                <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.0000000000005!2d106.816666!3d-6.200000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMDAuMCJTIDEwNsKwNDknMDAuMCJF!5e0!3m2!1sen!2sid!4v1700000000000"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            title="Peta lokasi acara"></iframe>
+            <a href="https://maps.google.com/maps?q=-6.200000,106.816666" target="_blank" class="map-link">
+                <i class="fas fa-external-link-alt"></i> Buka di Google Maps
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== DOA ===== -->
+<section id="doa">
+    <div class="container">
+        <div class="section-center">
+            <p class="section-subtitle">Doa &amp; Harapan</p>
+            <h2>Semoga <span class="highlight">Diberkati</span></h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="doa-box">
+            <div class="doa-text">
+                <span class="arabic">اللَّهُمَّ بَارِكْ لَنَا فِي وَلَدِنَا</span>
+                “Ya Allah, berkahilah kami dalam anak kami ini,
+                dan jadikanlah ia anak yang sholeh, sehat, dan berbakti kepada orang tua.”
+            </div>
+            <div class="doa-source">
+                <i class="fas fa-book-open" style="color:var(--gold); margin-right:6px;"></i>
+                — Doa untuk buah hati tercinta
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RSVP ===== -->
+<section id="rsvp" class="section-alt">
+    <div class="container">
+        <div class="section-center">
+            <p class="section-subtitle">Konfirmasi Kehadiran</p>
+            <h2>RSVP <span class="highlight">Sekarang</span></h2>
+            <div class="section-divider"></div>
+            <p style="color:var(--text-muted); max-width:500px; margin:0 auto 10px;">
+                Mohon isi form di bawah untuk memudahkan kami dalam menyiapkan hidangan.
+            </p>
+        </div>
+
+        <div class="rsvp-wrapper">
+            <form id="rsvpForm" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" id="nama" placeholder="Nama Anda" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="telepon">No. Telepon / WA</label>
+                        <input type="tel" id="telepon" placeholder="08xx-xxxx-xxxx" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jumlah">Jumlah Kehadiran <span class="required">*</span></label>
+                    <select id="jumlah" required>
+                        <option value="">— Pilih jumlah —</option>
+                        <option value="1">1 Orang</option>
+                        <option value="2">2 Orang</option>
+                        <option value="3">3 Orang</option>
+                        <option value="4">4 Orang</option>
+                        <option value="5">5 Orang</option>
+                        <option value="6+">6+ Orang</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ucapan">Ucapan &amp; Doa (opsional)</label>
+                    <textarea id="ucapan" placeholder="Tuliskan ucapan atau doa untuk putra kami…"></textarea>
+                </div>
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-gold">
+                        <i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kirim Konfirmasi
+                    </button>
+                </div>
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-logo">Aqiqah • 2026</div>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.6);">
+            <i class="fas fa-heart" style="color:var(--gold); margin:0 4px;"></i>
+            Kami menantikan kehadiran dan doa baik dari Bapak/Ibu/Saudara/i
+            <i class="fas fa-heart" style="color:var(--gold); margin:0 4px;"></i>
+        </p>
+        <div class="social-links">
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="credit">
+            &copy; 2026 Keluarga Bahagia — Dibuat dengan <i class="fas fa-heart" style="color:var(--gold);"></i>
+        </p>
+    </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    // ===== COUNTDOWN TIMER =====
+    (function() {
+        const targetDate = new Date('July 26, 2026 09:00:00 GMT+0700').getTime();
+
+        function updateCountdown() {
+            const now = Date.now();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    })();
+
+    // ===== RSVP FORM =====
+    (function() {
+        const form = document.getElementById('rsvpForm');
+        const messageEl = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Reset message
+            messageEl.className = 'form-message';
+            messageEl.style.display = 'none';
+
+            // Validasi sederhana
+            const nama = document.getElementById('nama').value.trim();
+            const jumlah = document.getElementById('jumlah').value;
+
+            if (!nama || nama.length < 2) {
+                messageEl.textContent = '⚠️ Mohon isi nama lengkap dengan benar.';
+                messageEl.className = 'form-message error';
+                messageEl.style.display = 'block';
+                return;
+            }
+
+            if (!jumlah) {
+                messageEl.textContent = '⚠️ Silakan pilih jumlah kehadiran.';
+                messageEl.className = 'form-message error';
+                messageEl.style.display = 'block';
+                return;
+            }
+
+            // Simulasi sukses
+            const telepon = document.getElementById('telepon').value.trim() || '(tidak diisi)';
+            const ucapan = document.getElementById('ucapan').value.trim() || '(tidak ada ucapan)';
+
+            console.log('📋 RSVP Data:', { nama, telepon, jumlah, ucapan });
+
+            messageEl.textContent = '✅ Terima kasih, ' + nama +
+                '! Konfirmasi kehadiran Anda telah kami terima. Semoga Allah membalas kebaikan Anda.';
+            messageEl.className = 'form-message success';
+            messageEl.style.display = 'block';
+
+            // Reset form (opsional)
+            // form.reset();
+            // Jika ingin reset, uncomment di bawah:
+            // setTimeout(() => { form.reset(); }, 2000);
+        });
+    })();
+</script>
+
+</body>
+</html>
