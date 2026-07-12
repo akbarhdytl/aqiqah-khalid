@@ -9,11 +9,11 @@
     <meta property="og:description" content="Dengan penuh syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri Tasyakuran Aqiqah putra pertama kami." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourgithubpages.github.io/index.html" />
-    <meta name="theme-color" content="#1E4D42" />
-    <meta property="og:image" content="https://akbarhdytl.github.io/aqiqah-khalid/thumb.jpg">
-    <meta property="og:image:secure_url" content="https://akbarhdytl.github.io/aqiqah-khalid/thumb.jpg">
+    <!-- Replace with your full image URL -->
+    <meta property="og:image" content="https://yourgithubpages.github.io/thumbnail.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta name="theme-color" content="#1E4D42" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -307,6 +307,21 @@
             display: inline-block;
             margin: 0 8px;
         }
+        /* ===== PERSONALIZED GREETING (OPENING) ===== */
+        #opening .greeting {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 4px;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+        #opening .greeting strong {
+            color: var(--primary);
+            opacity: 1;
+            font-weight: 600;
+        }
         #opening .btn-open {
             margin-top: 48px;
             padding: 18px 56px;
@@ -406,6 +421,21 @@
             font-style: italic;
             color: var(--gold);
             margin: 0 10px;
+        }
+        /* ===== PERSONALIZED GREETING (HERO) ===== */
+        .hero .hero-greeting {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+        .hero .hero-greeting strong {
+            color: var(--primary);
+            opacity: 1;
+            font-weight: 600;
         }
         .hero .scroll-indicator {
             position: absolute;
@@ -911,6 +941,12 @@
             .detail-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            #opening .greeting {
+                font-size: 0.95rem;
+            }
+            .hero .hero-greeting {
+                font-size: 0.95rem;
+            }
         }
         @media (max-width: 480px) {
             .detail-grid {
@@ -945,6 +981,12 @@
                 height: 42px;
                 font-size: 1rem;
             }
+            #opening .greeting {
+                font-size: 0.85rem;
+            }
+            .hero .hero-greeting {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -956,6 +998,8 @@
         <div class="content">
             <div class="bismillah font-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
             <div class="title">Tasyakuran Aqiqah</div>
+            <!-- ===== PERSONALIZED GREETING ===== -->
+            <p class="greeting" id="openingGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
             <div class="baby-name">Khalid Zayn Altair</div>
             <div class="parents">
                 Putra Pertama dari <br />
@@ -996,6 +1040,8 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
         <div class="container">
+            <!-- ===== PERSONALIZED GREETING (HERO) ===== -->
+            <p class="hero-greeting" id="heroGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
             <div class="praise">
                 <i class="fas fa-quote-left" style="opacity:0.3;"></i>
                 Segala puji bagi Allah SWT yang telah melimpahkan rahmat dan karunia-Nya kepada keluarga kami.
@@ -1021,8 +1067,8 @@
     <section id="profil" style="background: var(--bg);">
         <div class="container">
             <div class="text-center fade-up">
-                <div class="section-sub">Profil</div>
-                <h2 class="section-title">Putra Kami</h2>
+                <div class="section-sub">Profil Putra Pertama</div>
+                <h2 class="section-title">Data Kelahiran</h2>
                 <div class="section-divider"></div>
             </div>
             <div class="profil-grid">
@@ -1030,7 +1076,7 @@
                     <div class="icon"><i class="fas fa-calendar-day"></i></div>
                     <div class="label">Tanggal Lahir</div>
                     <div class="value">19 Juli 2026</div>
-                    <div class="value-sub">4 Dzulhijjah 1447 H</div>
+                    <div class="value-sub">Masehi · 4 Dzulhijjah 1447 H</div>
                 </div>
                 <div class="profil-card fade-up">
                     <div class="icon"><i class="fas fa-clock"></i></div>
@@ -1042,13 +1088,13 @@
                     <div class="icon"><i class="fas fa-weight-scale"></i></div>
                     <div class="label">Berat Badan</div>
                     <div class="value">3.200 gram</div>
-                    
+                    <div class="value-sub">3,2 kg</div>
                 </div>
                 <div class="profil-card fade-up">
                     <div class="icon"><i class="fas fa-ruler"></i></div>
                     <div class="label">Panjang Badan</div>
                     <div class="value">49 cm</div>
-                    
+                    <div class="value-sub">saat lahir</div>
                 </div>
             </div>
         </div>
@@ -1113,26 +1159,25 @@
                     <div class="icon"><i class="fas fa-calendar-day"></i></div>
                     <h4>Hari &amp; Tanggal</h4>
                     <p><strong>Minggu, 19 Juli 2026</strong></p>
-                    
+                    <p style="font-size:0.8rem; color:#777;">09.00 WIB – selesai</p>
                 </div>
                 <div class="detail-card fade-up">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h4>Waktu</h4>
                     <p><strong>09.00 WIB</strong></p>
-                    <p style="font-size:0.8rem; color:#777;">s.d. selesai</p>
+                    <p style="font-size:0.8rem; color:#777;">sampai selesai</p>
                 </div>
                 <div class="detail-card fade-up">
                     <div class="icon"><i class="fas fa-map-pin"></i></div>
                     <h4>Alamat</h4>
                     <div class="address">
                         Jl. Raya PLP Curug<br />
-                        Komplek Pos 3 Blok H No. 28, <br />
-                        Legok, Kab.Tangerang, Banten
+                        Komplek Pos 3 Blok H No. 28
                     </div>
                 </div>
             </div>
             <div class="text-center" style="margin-top: 8px;">
-                <a href="https://www.google.com/maps/dir//Shelby+Company+H28,+PH9G%2BH97,+Jl.+Raya+PLP+Curug,+Rancagong,+Curug,+Tangerang+Regency,+Banten+15820/@-6.2766717,106.570193,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x2e69fd0037c9544f:0x13944b613093738c!2m2!1d106.5759389!2d-6.2810649?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-map">
+                <a href="https://share.google/XzUBRn385tcdnNJWS" target="_blank" class="btn-map">
                     <i class="fas fa-location-dot" style="margin-right:10px;"></i> Buka Google Maps
                 </a>
             </div>
@@ -1143,8 +1188,8 @@
     <section id="galeri">
         <div class="container">
             <div class="text-center fade-up">
-                <div class="section-sub">Our Little</div>
-                <h2 class="section-title">Story</h2>
+                <div class="section-sub">Galeri</div>
+                <h2 class="section-title">Kenangan</h2>
                 <div class="section-divider"></div>
             </div>
             <div class="gallery-grid">
@@ -1209,13 +1254,45 @@
             <div class="footer-name">
                 Akbar Hidayatullah <span class="footer-amp">&amp;</span> Nadira Syerlie Nurhaliza
             </div>
+            <div class="footer-copy">
+                <i class="fas fa-heart" style="color:var(--gold); margin-right:6px;"></i>
+                Terima Kasih
+                <i class="fas fa-heart" style="color:var(--gold); margin-left:6px;"></i>
+            </div>
         </div>
     </footer>
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
         // ============================================================
-        //  1. OPENING SCREEN
+        //  1. READ URL PARAMETER FOR RECIPIENT NAME
+        // ============================================================
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Get the 'to' parameter (e.g., ?to=Bapak+Andi)
+        const recipientName = getQueryParam('to');
+
+        // If a name is provided, update both greeting elements
+        if (recipientName) {
+            // Decode URL-encoded characters (e.g., %20 → space)
+            const decodedName = decodeURIComponent(recipientName);
+            // Update opening screen greeting
+            const openingGreeting = document.getElementById('openingGreeting');
+            if (openingGreeting) {
+                openingGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+            }
+            // Update hero greeting
+            const heroGreeting = document.getElementById('heroGreeting');
+            if (heroGreeting) {
+                heroGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+            }
+        }
+
+        // ============================================================
+        //  2. OPENING SCREEN
         // ============================================================
         const opening = document.getElementById('opening');
         const btnOpen = document.getElementById('btnOpen');
@@ -1236,7 +1313,7 @@
         });
 
         // ============================================================
-        //  2. MUSIC TOGGLE
+        //  3. MUSIC TOGGLE
         // ============================================================
         musicBtn.addEventListener('click', function() {
             if (music.paused) {
@@ -1253,14 +1330,12 @@
         });
 
         // ============================================================
-        //  3. PAUSE MUSIC WHEN TAB NOT FOCUSED  (fix)
+        //  4. PAUSE MUSIC WHEN TAB NOT FOCUSED
         // ============================================================
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
-                // Tab is hidden → pause if playing
                 if (!music.paused) {
                     music.pause();
-                    // Remember that we paused due to visibility
                     music.dataset.wasPlaying = 'true';
                     musicBtn.classList.add('paused');
                     musicIcon.className = 'fas fa-play';
@@ -1268,7 +1343,6 @@
                     music.dataset.wasPlaying = 'false';
                 }
             } else {
-                // Tab is visible again → resume if it was playing before
                 if (music.dataset.wasPlaying === 'true') {
                     music.play().catch(() => {});
                     musicBtn.classList.remove('paused');
@@ -1278,7 +1352,6 @@
             }
         });
 
-        // Also handle when user leaves the page (pagehide)
         window.addEventListener('pagehide', function() {
             if (!music.paused) {
                 music.pause();
@@ -1287,7 +1360,7 @@
         });
 
         // ============================================================
-        //  4. NAVBAR SCROLL EFFECT
+        //  5. NAVBAR SCROLL EFFECT
         // ============================================================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() {
@@ -1299,13 +1372,12 @@
         });
 
         // ============================================================
-        //  5. LIGHTBOX (IMAGE VIEWER)
+        //  6. LIGHTBOX (IMAGE VIEWER)
         // ============================================================
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const closeLightbox = document.getElementById('closeLightbox');
 
-        // Open lightbox on gallery item click
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 const src = this.dataset.src;
@@ -1317,7 +1389,6 @@
             });
         });
 
-        // Close lightbox
         function closeLightboxFn() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
@@ -1328,7 +1399,6 @@
             if (e.target === this) closeLightboxFn();
         });
 
-        // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && lightbox.classList.contains('active')) {
                 closeLightboxFn();
@@ -1336,7 +1406,7 @@
         });
 
         // ============================================================
-        //  6. COPY REKENING
+        //  7. COPY REKENING
         // ============================================================
         document.getElementById('btnCopyRekening').addEventListener('click', function() {
             const rekening = document.getElementById('rekeningDisplay').innerText;
@@ -1350,7 +1420,6 @@
                     this.classList.remove('copied');
                 }, 3000);
             }).catch(() => {
-                // fallback
                 const range = document.createRange();
                 const selection = window.getSelection();
                 const el = document.getElementById('rekeningDisplay');
@@ -1370,7 +1439,7 @@
         });
 
         // ============================================================
-        //  7. INTERSECTION OBSERVER (fade animations)
+        //  8. INTERSECTION OBSERVER
         // ============================================================
         const fadeEls = document.querySelectorAll('.fade-up, .fade-in');
         const observer = new IntersectionObserver((entries) => {
