@@ -237,27 +237,7 @@
                 font-size: 1.8rem;
             }
         }
-/* ===== RSVP ===== */
-.rsvp-box input:focus,
-.rsvp-box textarea:focus {
-    border-color: var(--gold) !important;
-    outline: none;
-    background: #fff;
-}
-.rsvp-box input:invalid,
-.rsvp-box textarea:invalid {
-    border-color: #e0ddd7;
-}
-#rsvpSubmitBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none !important;
-}
-#rsvpSubmitBtn:hover:not(:disabled) {
-    background: #143a31;
-    transform: scale(1.02);
-}
-        
+
         /* ===== OPENING SCREEN ===== */
         #opening {
             position: fixed;
@@ -923,87 +903,6 @@
         .fade-in.visible {
             opacity: 1;
         }
-
-        <!-- ===== RSVP SECTION ===== -->
-<section id="rsvp" style="background: var(--bg);">
-    <div class="container">
-        <div class="text-center fade-up">
-            <div class="section-sub">Konfirmasi Kehadiran</div>
-            <h2 class="section-title">RSVP</h2>
-            <div class="section-divider"></div>
-            <p style="max-width:600px; margin:0 auto 32px; color:#555; font-weight:300;">
-                Mohon isi form di bawah ini untuk mengonfirmasi kehadiran Bapak/Ibu/Saudara/i.
-            </p>
-        </div>
-
-        <!-- ===== RSVP FORM ===== -->
-        <div class="rsvp-box fade-up" style="max-width:600px; margin:0 auto; background:var(--white); border-radius:var(--radius); padding:44px 40px; box-shadow:var(--shadow);">
-            
-            <!-- Success message (hidden initially) -->
-            <div id="rsvpSuccess" style="display:none; text-align:center; padding:20px 0;">
-                <div style="font-size:4rem; color:var(--gold);">✅</div>
-                <h3 style="color:var(--primary); margin-top:12px; font-family:'Cormorant Garamond', serif; font-size:1.8rem;">Terima Kasih!</h3>
-                <p style="color:#555; margin-top:8px;">RSVP Anda telah tercatat. Kami tunggu kehadirannya!</p>
-                <button onclick="resetForm()" class="btn-map" style="margin-top:20px;">Kirim RSVP Lain</button>
-            </div>
-
-            <!-- The form -->
-            <form id="rsvpForm" style="display:block;">
-                <div style="margin-bottom:20px;">
-                    <label for="rsvpNama" style="display:block; font-weight:500; font-size:0.9rem; color:var(--primary); letter-spacing:0.5px; margin-bottom:6px;">
-                        Nama Lengkap <span style="color:#c0392b;">*</span>
-                    </label>
-                    <input type="text" id="rsvpNama" required 
-                           style="width:100%; padding:14px 18px; border:2px solid #e0ddd7; border-radius:14px; font-size:1rem; transition:border 0.3s; background:#faf9f6;"
-                           placeholder="Contoh: Bapak Andi" />
-                </div>
-
-                <div style="margin-bottom:20px;">
-                    <label style="display:block; font-weight:500; font-size:0.9rem; color:var(--primary); letter-spacing:0.5px; margin-bottom:6px;">
-                        Status Kehadiran <span style="color:#c0392b;">*</span>
-                    </label>
-                    <div style="display:flex; gap:20px; flex-wrap:wrap;">
-                        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                            <input type="radio" name="status" value="Hadir" required style="accent-color:var(--gold); width:18px; height:18px;" />
-                            <span>✅ Hadir</span>
-                        </label>
-                        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                            <input type="radio" name="status" value="Tidak Hadir" style="accent-color:var(--gold); width:18px; height:18px;" />
-                            <span>❌ Tidak Hadir</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div id="jumlahTamuWrapper" style="margin-bottom:20px; display:none;">
-                    <label for="rsvpJumlah" style="display:block; font-weight:500; font-size:0.9rem; color:var(--primary); letter-spacing:0.5px; margin-bottom:6px;">
-                        Jumlah Tamu yang Hadir <span style="color:#c0392b;">*</span>
-                    </label>
-                    <input type="number" id="rsvpJumlah" min="1" value="1"
-                           style="width:100%; padding:14px 18px; border:2px solid #e0ddd7; border-radius:14px; font-size:1rem; transition:border 0.3s; background:#faf9f6;" />
-                </div>
-
-                <div style="margin-bottom:24px;">
-                    <label for="rsvpPesan" style="display:block; font-weight:500; font-size:0.9rem; color:var(--primary); letter-spacing:0.5px; margin-bottom:6px;">
-                        Doa &amp; Pesan (Opsional)
-                    </label>
-                    <textarea id="rsvpPesan" rows="3"
-                              style="width:100%; padding:14px 18px; border:2px solid #e0ddd7; border-radius:14px; font-size:1rem; transition:border 0.3s; background:#faf9f6; resize:vertical; font-family:inherit;"
-                              placeholder="Semoga putra pertama keluarga ini menjadi anak yang shalih dan berbakti..."></textarea>
-                </div>
-
-                <!-- Hidden phone field (auto-filled from URL or leave empty) -->
-                <input type="hidden" id="rsvpPhone" value="" />
-
-                <button type="submit" id="rsvpSubmitBtn" 
-                        style="width:100%; padding:16px; background:var(--primary); color:var(--white); border:none; border-radius:60px; font-weight:600; font-size:1.1rem; letter-spacing:1px; cursor:pointer; transition:background 0.3s, transform 0.3s; box-shadow:0 8px 24px rgba(30,77,66,0.2);">
-                    <i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kirim RSVP
-                </button>
-
-                <div id="rsvpError" style="margin-top:16px; color:#c0392b; font-size:0.9rem; text-align:center; display:none;"></div>
-            </form>
-        </div>
-    </div>
-</section>
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
