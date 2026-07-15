@@ -15,7 +15,7 @@ const CONFIG = {
         
         // Tanggal lahir (isi setelah lahir)
         birthDate: '16 Juli 2026',
-        birthDateHijri: '4 Dzulhijjah 1447 H',
+        birthDateHijri: '4 Rabiul Awal 1447 H',
         
         // Waktu lahir
         birthTime: '09.00 WIB',
