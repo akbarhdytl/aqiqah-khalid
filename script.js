@@ -1,14 +1,26 @@
 (function() {
     'use strict';
 
-    // DOM refs
+    // ============================================================
+    //  1. UTILITY FUNCTIONS
+    // ============================================================
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // ============================================================
+    //  2. DOM REFS
+    // ============================================================
     const opening = document.getElementById('opening');
     const btnOpen = document.getElementById('btnOpen');
     const audio = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('music-btn');
     const musicIcon = document.getElementById('musicIcon');
 
-    // AudioContext & GainNode (for smooth fade)
+    // ============================================================
+    //  3. AUDIO CONTEXT & GAIN (for smooth fade)
+    // ============================================================
     let audioCtx = null;
     let gainNode = null;
     let source = null;
@@ -29,19 +41,6 @@
         return audioCtx;
     }
 
-    // ----- BUKA UNDANGAN -----
-    btnOpen.addEventListener('click', function() {
-        opening.classList.add('hide');
-        initAudioContext();
-        audio.play().catch(function(err) {
-            console.warn('Audio play failed:', err);
-        });
-        musicBtn.classList.remove('paused');
-        musicIcon.className = 'fas fa-pause';
-        isPlaying = true;
-    });
-
-    // ----- MUSIC BUTTON (toggle with fade) -----
     function fadeVolume(target, duration) {
         duration = duration || 600;
         if (!gainNode) return;
@@ -61,6 +60,37 @@
         update();
     }
 
+    // ============================================================
+    //  4. OPENING SCREEN
+    // ============================================================
+    // Personalize greeting from URL
+    const recipientName = getQueryParam('to');
+    if (recipientName) {
+        const decodedName = decodeURIComponent(recipientName);
+        const openingGreeting = document.getElementById('openingGreeting');
+        const heroGreeting = document.getElementById('heroGreeting');
+        if (openingGreeting) {
+            openingGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+        }
+        if (heroGreeting) {
+            heroGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+        }
+    }
+
+    btnOpen.addEventListener('click', function() {
+        opening.classList.add('hide');
+        initAudioContext();
+        audio.play().catch(function(err) {
+            console.warn('Audio play failed:', err);
+        });
+        musicBtn.classList.remove('paused');
+        musicIcon.className = 'fas fa-pause';
+        isPlaying = true;
+    });
+
+    // ============================================================
+    //  5. MUSIC TOGGLE
+    // ============================================================
     musicBtn.addEventListener('click', function() {
         initAudioContext();
 
@@ -83,7 +113,39 @@
         }
     });
 
-    // ----- RESTORE STATE ON LOAD -----
+    // ============================================================
+    //  6. PAUSE MUSIC WHEN TAB NOT FOCUSED
+    // ============================================================
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            if (!audio.paused) {
+                audio.pause();
+                audio.dataset.wasPlaying = 'true';
+                musicBtn.classList.add('paused');
+                musicIcon.className = 'fas fa-play';
+            } else {
+                audio.dataset.wasPlaying = 'false';
+            }
+        } else {
+            if (audio.dataset.wasPlaying === 'true') {
+                audio.play().catch(() => {});
+                musicBtn.classList.remove('paused');
+                musicIcon.className = 'fas fa-pause';
+                audio.dataset.wasPlaying = 'false';
+            }
+        }
+    });
+
+    window.addEventListener('pagehide', function() {
+        if (!audio.paused) {
+            audio.pause();
+            audio.dataset.wasPlaying = 'true';
+        }
+    });
+
+    // ============================================================
+    //  7. RESTORE STATE ON LOAD
+    // ============================================================
     window.addEventListener('load', function() {
         if (opening.classList.contains('hide')) {
             if (!audio.paused) {
@@ -106,168 +168,110 @@
     });
 
     // ============================================================
-//  RSVP FORM HANDLING
-// ============================================================
-
-// Replace with your Google Apps Script Web App URL
-const RSVP_API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-
-const rsvpForm = document.getElementById('rsvpForm');
-const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
-const rsvpSuccess = document.getElementById('rsvpSuccess');
-const rsvpError = document.getElementById('rsvpError');
-const rsvpNama = document.getElementById('rsvpNama');
-const rsvpJumlah = document.getElementById('rsvpJumlah');
-const rsvpPesan = document.getElementById('rsvpPesan');
-const rsvpPhone = document.getElementById('rsvpPhone');
-const jumlahTamuWrapper = document.getElementById('jumlahTamuWrapper');
-
-// ===== Auto-fill name from URL parameter =====
-function getQueryParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-const guestName = getQueryParam('to');
-if (guestName) {
-    rsvpNama.value = decodeURIComponent(guestName);
-    rsvpNama.readOnly = true;
-    rsvpNama.style.background = '#f0ede8';
-    rsvpNama.style.color = '#555';
-}
-
-// ===== Toggle "Jumlah Tamu" field based on status =====
-document.querySelectorAll('input[name="status"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        if (this.value === 'Hadir') {
-            jumlahTamuWrapper.style.display = 'block';
-            rsvpJumlah.required = true;
+    //  8. NAVBAR SCROLL EFFECT
+    // ============================================================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+            navbar.classList.add('scrolled');
         } else {
-            jumlahTamuWrapper.style.display = 'none';
-            rsvpJumlah.required = false;
+            navbar.classList.remove('scrolled');
         }
     });
-});
 
-// ===== Submit handler =====
-rsvpForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Hide previous messages
-    rsvpError.style.display = 'none';
-    rsvpSuccess.style.display = 'none';
-    
-    // Get form data
-    const status = document.querySelector('input[name="status"]:checked');
-    if (!status) {
-        rsvpError.textContent = '❌ Silakan pilih status kehadiran.';
-        rsvpError.style.display = 'block';
-        return;
-    }
-    
-    const formData = {
-        nama: rsvpNama.value.trim(),
-        status: status.value,
-        jumlah: status.value === 'Hadir' ? rsvpJumlah.value : '0',
-        pesan: rsvpPesan.value.trim(),
-        phone: rsvpPhone.value || ''
-    };
-    
-    if (!formData.nama) {
-        rsvpError.textContent = '❌ Silakan masukkan nama lengkap.';
-        rsvpError.style.display = 'block';
-        return;
-    }
-    
-    // Disable button and show loading
-    rsvpSubmitBtn.disabled = true;
-    rsvpSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-    
-    try {
-        const response = await fetch(RSVP_API_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Required for Google Apps Script
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+    // ============================================================
+    //  9. LIGHTBOX (IMAGE VIEWER)
+    // ============================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('closeLightbox');
+
+    document.querySelectorAll('.gallery-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            const src = this.dataset.src;
+            if (src) {
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         });
-        
-        // Since we use 'no-cors', we can't read the response directly
-        // So we assume success if no network error
-        
-        // Hide form, show success
-        rsvpForm.style.display = 'none';
-        rsvpSuccess.style.display = 'block';
-        
-    } catch (error) {
-        console.error('RSVP Error:', error);
-        rsvpError.textContent = '❌ Gagal mengirim RSVP. Silakan coba lagi.';
-        rsvpError.style.display = 'block';
-    } finally {
-        rsvpSubmitBtn.disabled = false;
-        rsvpSubmitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kirim RSVP';
-    }
-});
+    });
 
-// ===== Reset form (for "Kirim RSVP Lain" button) =====
-function resetForm() {
-    rsvpForm.style.display = 'block';
-    rsvpSuccess.style.display = 'none';
-    rsvpForm.reset();
-    jumlahTamuWrapper.style.display = 'none';
-    rsvpNama.readOnly = false;
-    rsvpNama.style.background = '#faf9f6';
-    rsvpNama.style.color = 'inherit';
-    rsvpError.style.display = 'none';
-    // Scroll to form
-    document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' });
-}
-    
-    // ----- COPY REKENING (CLIPBOARD API) -----
+    function closeLightboxFn() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (closeLightbox) {
+        closeLightbox.addEventListener('click', closeLightboxFn);
+    }
+    if (lightbox) {
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) closeLightboxFn();
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightboxFn();
+        }
+    });
+
+    // ============================================================
+    //  10. COPY REKENING
+    // ============================================================
     const btnCopy = document.getElementById('btnCopyRekening');
-    const rekeningText = document.getElementById('rekeningDisplay').innerText;
+    const rekeningDisplay = document.getElementById('rekeningDisplay');
     const feedback = document.getElementById('copyFeedback');
 
-    btnCopy.addEventListener('click', function() {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(rekeningText).then(function() {
-                showCopiedFeedback();
-            }).catch(function() {
+    if (btnCopy && rekeningDisplay) {
+        const rekeningText = rekeningDisplay.innerText;
+
+        btnCopy.addEventListener('click', function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(rekeningText).then(function() {
+                    showCopiedFeedback();
+                }).catch(function() {
+                    fallbackCopy();
+                });
+            } else {
                 fallbackCopy();
-            });
-        } else {
-            fallbackCopy();
-        }
-    });
+            }
+        });
 
-    function fallbackCopy() {
-        const textArea = document.createElement('textarea');
-        textArea.value = rekeningText;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            showCopiedFeedback();
-        } catch (err) {
-            feedback.textContent = 'Gagal menyalin, silakan salin manual.';
-            feedback.style.color = '#b33c3c';
+        function fallbackCopy() {
+            const textArea = document.createElement('textarea');
+            textArea.value = rekeningText;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback();
+            } catch (err) {
+                if (feedback) {
+                    feedback.textContent = 'Gagal menyalin, silakan salin manual.';
+                    feedback.style.color = '#b33c3c';
+                }
+            }
+            document.body.removeChild(textArea);
         }
-        document.body.removeChild(textArea);
+
+        function showCopiedFeedback() {
+            btnCopy.classList.add('copied');
+            btnCopy.innerHTML = '<i class="fas fa-check" style="margin-right:10px;"></i> ✓ Nomor Rekening Disalin';
+            if (feedback) feedback.textContent = '';
+            setTimeout(function() {
+                btnCopy.classList.remove('copied');
+                btnCopy.innerHTML = '<i class="fas fa-copy" style="margin-right:10px;"></i> Salin Nomor Rekening';
+            }, 3000);
+        }
     }
 
-    function showCopiedFeedback() {
-        btnCopy.classList.add('copied');
-        btnCopy.innerHTML = '<i class="fas fa-check" style="margin-right:10px;"></i> ✓ Nomor Rekening Disalin';
-        feedback.textContent = '';
-        setTimeout(function() {
-            btnCopy.classList.remove('copied');
-            btnCopy.innerHTML = '<i class="fas fa-copy" style="margin-right:10px;"></i> Salin Nomor Rekening';
-        }, 3000);
-    }
-
-    // ----- INTERSECTION OBSERVER (fade-up, fade-in) -----
+    // ============================================================
+    //  11. INTERSECTION OBSERVER (fade-up, fade-in)
+    // ============================================================
     const observerOptions = {
         threshold: 0.15,
         rootMargin: '0px 0px -30px 0px'
@@ -286,7 +290,9 @@ function resetForm() {
         observer.observe(el);
     });
 
-    // ----- PARALLAX RINGAN (hero) -----
+    // ============================================================
+    //  12. PARALLAX RINGAN (hero)
+    // ============================================================
     const hero = document.querySelector('.hero');
     window.addEventListener('scroll', function() {
         const offset = window.pageYOffset;
@@ -295,7 +301,9 @@ function resetForm() {
         }
     }, { passive: true });
 
-    // ----- SMOOTH SCROLL for anchors -----
+    // ============================================================
+    //  13. SMOOTH SCROLL for anchors
+    // ============================================================
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -307,5 +315,159 @@ function resetForm() {
             }
         });
     });
+
+    // ============================================================
+    //  14. RSVP — KONFIRMASI KEHADIRAN
+    // ============================================================
+    // Konfigurasi — GANTI DENGAN URL APPS SCRIPT ANDA
+    const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycbwuo27BzNDsfwyxpcYK8wP9N6DSUUrXmdyefxc2_zVAoWlRXivYssB4bNEms5UoGo96/exec';
+
+    // Ambil elemen
+    const rsvpForm = document.getElementById('rsvpForm');
+    const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
+    const rsvpSuccess = document.getElementById('rsvpSuccess');
+    const rsvpError = document.getElementById('rsvpError');
+    const rsvpNama = document.getElementById('rsvpNama');
+    const rsvpJumlah = document.getElementById('rsvpJumlah');
+    const rsvpPesan = document.getElementById('rsvpPesan');
+    const rsvpPhone = document.getElementById('rsvpPhone');
+    const jumlahTamuWrapper = document.getElementById('jumlahTamuWrapper');
+
+    // Cek apakah elemen RSVP ada di halaman
+    if (rsvpForm) {
+        // ===== Auto-fill nama dari URL (jika ada) =====
+        const guestName = getQueryParam('to');
+        if (guestName && rsvpNama) {
+            rsvpNama.value = decodeURIComponent(guestName);
+            rsvpNama.readOnly = true;
+            rsvpNama.style.background = '#f0ede8';
+            rsvpNama.style.color = '#555';
+        }
+
+        // ===== Toggle "Jumlah Tamu" berdasarkan status =====
+        const statusRadios = document.querySelectorAll('input[name="status"]');
+        if (statusRadios.length) {
+            statusRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'Hadir') {
+                        if (jumlahTamuWrapper) {
+                            jumlahTamuWrapper.style.display = 'block';
+                        }
+                        if (rsvpJumlah) {
+                            rsvpJumlah.required = true;
+                        }
+                    } else {
+                        if (jumlahTamuWrapper) {
+                            jumlahTamuWrapper.style.display = 'none';
+                        }
+                        if (rsvpJumlah) {
+                            rsvpJumlah.required = false;
+                        }
+                    }
+                });
+            });
+        }
+
+        // ===== Submit handler =====
+        rsvpForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Sembunyikan pesan sebelumnya
+            if (rsvpError) rsvpError.style.display = 'none';
+            if (rsvpSuccess) rsvpSuccess.style.display = 'none';
+
+            // Ambil status
+            const statusRadio = document.querySelector('input[name="status"]:checked');
+            if (!statusRadio) {
+                if (rsvpError) {
+                    rsvpError.textContent = '❌ Silakan pilih status kehadiran.';
+                    rsvpError.style.display = 'block';
+                }
+                return;
+            }
+
+            // Siapkan data
+            const formData = {
+                nama: rsvpNama ? rsvpNama.value.trim() : '',
+                status: statusRadio.value,
+                jumlah: statusRadio.value === 'Hadir' ? (rsvpJumlah ? rsvpJumlah.value : '1') : '0',
+                pesan: rsvpPesan ? rsvpPesan.value.trim() : '',
+                phone: rsvpPhone ? rsvpPhone.value : ''
+            };
+
+            if (!formData.nama) {
+                if (rsvpError) {
+                    rsvpError.textContent = '❌ Silakan masukkan nama lengkap.';
+                    rsvpError.style.display = 'block';
+                }
+                return;
+            }
+
+            // Disable tombol & loading
+            if (rsvpSubmitBtn) {
+                rsvpSubmitBtn.disabled = true;
+                rsvpSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            }
+
+            try {
+                const response = await fetch(RSVP_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                // Karena mode 'no-cors', kita tidak bisa baca response
+                // Tapi jika tidak ada error network, anggap sukses
+                if (rsvpForm) rsvpForm.style.display = 'none';
+                if (rsvpSuccess) rsvpSuccess.style.display = 'block';
+
+            } catch (error) {
+                console.error('RSVP Error:', error);
+                if (rsvpError) {
+                    rsvpError.textContent = '❌ Gagal mengirim RSVP. Silakan coba lagi.';
+                    rsvpError.style.display = 'block';
+                }
+            } finally {
+                if (rsvpSubmitBtn) {
+                    rsvpSubmitBtn.disabled = false;
+                    rsvpSubmitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kirim RSVP';
+                }
+            }
+        });
+    }
+
+    // ===== Reset form (untuk tombol "Kirim RSVP Lain") =====
+    window.resetRsvpForm = function() {
+        if (rsvpForm) {
+            rsvpForm.style.display = 'block';
+            if (rsvpSuccess) rsvpSuccess.style.display = 'none';
+            rsvpForm.reset();
+            if (jumlahTamuWrapper) jumlahTamuWrapper.style.display = 'none';
+            
+            // Jika nama diisi otomatis dari URL, jangan reset
+            const guestNameFromUrl = getQueryParam('to');
+            if (guestNameFromUrl && rsvpNama) {
+                rsvpNama.value = decodeURIComponent(guestNameFromUrl);
+                rsvpNama.readOnly = true;
+                rsvpNama.style.background = '#f0ede8';
+                rsvpNama.style.color = '#555';
+            } else if (rsvpNama) {
+                rsvpNama.readOnly = false;
+                rsvpNama.style.background = '#faf9f6';
+                rsvpNama.style.color = 'inherit';
+            }
+            
+            if (rsvpError) rsvpError.style.display = 'none';
+            
+            // Scroll ke form
+            const rsvpSection = document.getElementById('rsvp');
+            if (rsvpSection) {
+                rsvpSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
 
 })();
