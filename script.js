@@ -105,6 +105,124 @@
         }
     });
 
+    // ============================================================
+//  RSVP FORM HANDLING
+// ============================================================
+
+// Replace with your Google Apps Script Web App URL
+const RSVP_API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+const rsvpForm = document.getElementById('rsvpForm');
+const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
+const rsvpSuccess = document.getElementById('rsvpSuccess');
+const rsvpError = document.getElementById('rsvpError');
+const rsvpNama = document.getElementById('rsvpNama');
+const rsvpJumlah = document.getElementById('rsvpJumlah');
+const rsvpPesan = document.getElementById('rsvpPesan');
+const rsvpPhone = document.getElementById('rsvpPhone');
+const jumlahTamuWrapper = document.getElementById('jumlahTamuWrapper');
+
+// ===== Auto-fill name from URL parameter =====
+function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+const guestName = getQueryParam('to');
+if (guestName) {
+    rsvpNama.value = decodeURIComponent(guestName);
+    rsvpNama.readOnly = true;
+    rsvpNama.style.background = '#f0ede8';
+    rsvpNama.style.color = '#555';
+}
+
+// ===== Toggle "Jumlah Tamu" field based on status =====
+document.querySelectorAll('input[name="status"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        if (this.value === 'Hadir') {
+            jumlahTamuWrapper.style.display = 'block';
+            rsvpJumlah.required = true;
+        } else {
+            jumlahTamuWrapper.style.display = 'none';
+            rsvpJumlah.required = false;
+        }
+    });
+});
+
+// ===== Submit handler =====
+rsvpForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Hide previous messages
+    rsvpError.style.display = 'none';
+    rsvpSuccess.style.display = 'none';
+    
+    // Get form data
+    const status = document.querySelector('input[name="status"]:checked');
+    if (!status) {
+        rsvpError.textContent = '❌ Silakan pilih status kehadiran.';
+        rsvpError.style.display = 'block';
+        return;
+    }
+    
+    const formData = {
+        nama: rsvpNama.value.trim(),
+        status: status.value,
+        jumlah: status.value === 'Hadir' ? rsvpJumlah.value : '0',
+        pesan: rsvpPesan.value.trim(),
+        phone: rsvpPhone.value || ''
+    };
+    
+    if (!formData.nama) {
+        rsvpError.textContent = '❌ Silakan masukkan nama lengkap.';
+        rsvpError.style.display = 'block';
+        return;
+    }
+    
+    // Disable button and show loading
+    rsvpSubmitBtn.disabled = true;
+    rsvpSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+    
+    try {
+        const response = await fetch(RSVP_API_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Google Apps Script
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        // Since we use 'no-cors', we can't read the response directly
+        // So we assume success if no network error
+        
+        // Hide form, show success
+        rsvpForm.style.display = 'none';
+        rsvpSuccess.style.display = 'block';
+        
+    } catch (error) {
+        console.error('RSVP Error:', error);
+        rsvpError.textContent = '❌ Gagal mengirim RSVP. Silakan coba lagi.';
+        rsvpError.style.display = 'block';
+    } finally {
+        rsvpSubmitBtn.disabled = false;
+        rsvpSubmitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:10px;"></i> Kirim RSVP';
+    }
+});
+
+// ===== Reset form (for "Kirim RSVP Lain" button) =====
+function resetForm() {
+    rsvpForm.style.display = 'block';
+    rsvpSuccess.style.display = 'none';
+    rsvpForm.reset();
+    jumlahTamuWrapper.style.display = 'none';
+    rsvpNama.readOnly = false;
+    rsvpNama.style.background = '#faf9f6';
+    rsvpNama.style.color = 'inherit';
+    rsvpError.style.display = 'none';
+    // Scroll to form
+    document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' });
+}
+    
     // ----- COPY REKENING (CLIPBOARD API) -----
     const btnCopy = document.getElementById('btnCopyRekening');
     const rekeningText = document.getElementById('rekeningDisplay').innerText;
