@@ -22,6 +22,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
+    <!-- ===== LOAD CONFIG ===== -->
+    <script src="config.js"></script>
+
     <style>
         /* ===== RESET & VARIABLES ===== */
         * {
@@ -1015,10 +1018,10 @@
         <div class="arabesque"></div>
         <div class="content">
             <div class="bismillah font-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-            <div class="title">Tasyakuran Aqiqah</div>
+            <div class="title" id="eventTitle">Tasyakuran Aqiqah</div>
             <p class="greeting" id="openingGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
-            <div class="baby-name">Khalid Zayn Altair</div>
-            <div class="parents">
+            <div class="baby-name" id="babyName">Khalid Zayn Altair</div>
+            <div class="parents" id="parentsName">
                 Putra Pertama dari <br />
                 Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
             </div>
@@ -1065,8 +1068,8 @@
                 Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri Tasyakuran Aqiqah putra pertama kami.
                 <i class="fas fa-quote-right" style="opacity:0.3;"></i>
             </div>
-            <div class="main-title">Khalid Zayn Altair</div>
-            <div class="subtitle">
+            <div class="main-title" id="heroBabyName">Khalid Zayn Altair</div>
+            <div class="subtitle" id="heroParents">
                 Putra Pertama
                 <span style="display:inline-block; margin:0 4px;">•</span>
                 Akbar Hidayatullah
@@ -1089,25 +1092,25 @@
                 <div class="section-divider"></div>
             </div>
             <div class="profil-grid">
-                <div class="profil-card fade-up">
+                <div class="profil-card fade-up" id="profilTanggal">
                     <div class="icon"><i class="fas fa-calendar-day"></i></div>
                     <div class="label">Tanggal Lahir</div>
                     <div class="value">19 Juli 2026</div>
                     <div class="value-sub">Masehi · 4 Dzulhijjah 1447 H</div>
                 </div>
-                <div class="profil-card fade-up">
+                <div class="profil-card fade-up" id="profilWaktu">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <div class="label">Waktu Lahir</div>
                     <div class="value">09.00 WIB</div>
                     <div class="value-sub">pagi hari</div>
                 </div>
-                <div class="profil-card fade-up">
+                <div class="profil-card fade-up" id="profilBerat">
                     <div class="icon"><i class="fas fa-weight-scale"></i></div>
                     <div class="label">Berat Badan</div>
                     <div class="value">3.200 gram</div>
                     <div class="value-sub">3,2 kg</div>
                 </div>
-                <div class="profil-card fade-up">
+                <div class="profil-card fade-up" id="profilPanjang">
                     <div class="icon"><i class="fas fa-ruler"></i></div>
                     <div class="label">Panjang Badan</div>
                     <div class="value">49 cm</div>
@@ -1135,29 +1138,15 @@
         <div class="container">
             <div class="text-center fade-up">
                 <div class="section-sub">Makna Nama</div>
-                <h2 class="section-title">Khalid Zayn Altair</h2>
+                <h2 class="section-title" id="maknaTitle">Khalid Zayn Altair</h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="nama-grid">
-                <div class="nama-card fade-up">
-                    <div class="name">Khalid</div>
-                    <div class="meaning">Abadi</div>
-                    <div class="desc">Kekal, langgeng, dan abadi dalam kebaikan.</div>
-                </div>
-                <div class="nama-card fade-up">
-                    <div class="name">Zayn</div>
-                    <div class="meaning">Keindahan</div>
-                    <div class="desc">Perhiasan, keelokan, dan kemuliaan akhlak.</div>
-                </div>
-                <div class="nama-card fade-up">
-                    <div class="name">Altair</div>
-                    <div class="meaning">Bintang yang bersinar tinggi</div>
-                    <div class="desc">Cahaya yang terang, petunjuk, dan inspirasi.</div>
-                </div>
+            <div class="nama-grid" id="namaGrid">
+                <!-- Dinamis dari config.js -->
             </div>
-            <div class="doa-bayi fade-up">
+            <div class="doa-bayi fade-up" id="doaBayi">
                 <i class="fas fa-hand-sparkles" style="color:var(--gold); margin-right:10px;"></i>
-                Semoga Allah SWT menjadikan Khalid Zayn Altair sebagai anak yang saleh, sehat, cerdas, berakhlak mulia, mencintai Al-Qur'an, berbakti kepada orang tua, dan menjadi keberkahan bagi umat.
+                <span id="doaText">Semoga Allah SWT menjadikan Khalid Zayn Altair sebagai anak yang saleh, sehat, cerdas, berakhlak mulia, mencintai Al-Qur'an, berbakti kepada orang tua, dan menjadi keberkahan bagi umat.</span>
                 <i class="fas fa-hand-sparkles" style="color:var(--gold); margin-left:10px;"></i>
             </div>
         </div>
@@ -1172,19 +1161,19 @@
                 <div class="section-divider"></div>
             </div>
             <div class="detail-grid">
-                <div class="detail-card fade-up">
+                <div class="detail-card fade-up" id="detailTanggal">
                     <div class="icon"><i class="fas fa-calendar-day"></i></div>
                     <h4>Hari &amp; Tanggal</h4>
                     <p><strong>Minggu, 19 Juli 2026</strong></p>
                     <p style="font-size:0.8rem; color:#777;">09.00 WIB – selesai</p>
                 </div>
-                <div class="detail-card fade-up">
+                <div class="detail-card fade-up" id="detailWaktu">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h4>Waktu</h4>
                     <p><strong>09.00 WIB</strong></p>
                     <p style="font-size:0.8rem; color:#777;">sampai selesai</p>
                 </div>
-                <div class="detail-card fade-up">
+                <div class="detail-card fade-up" id="detailAlamat">
                     <div class="icon"><i class="fas fa-map-pin"></i></div>
                     <h4>Alamat</h4>
                     <div class="address">
@@ -1194,7 +1183,7 @@
                 </div>
             </div>
             <div class="text-center" style="margin-top: 8px;">
-                <a href="https://share.google/XzUBRn385tcdnNJWS" target="_blank" class="btn-map">
+                <a href="https://share.google/XzUBRn385tcdnNJWS" target="_blank" class="btn-map" id="mapsLink">
                     <i class="fas fa-location-dot" style="margin-right:10px;"></i> Buka Google Maps
                 </a>
             </div>
@@ -1209,31 +1198,8 @@
                 <h2 class="section-title">Kenangan</h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item fade-in" data-src="gallery1.jpg">
-                    <img src="gallery1.jpg" alt="Galeri 1" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
-                <div class="gallery-item fade-in" data-src="gallery2.jpg">
-                    <img src="gallery2.jpg" alt="Galeri 2" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
-                <div class="gallery-item fade-in" data-src="gallery3.jpg">
-                    <img src="gallery3.jpg" alt="Galeri 3" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
-                <div class="gallery-item fade-in" data-src="gallery4.jpg">
-                    <img src="gallery4.jpg" alt="Galeri 4" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
-                <div class="gallery-item fade-in" data-src="gallery5.jpg">
-                    <img src="gallery5.jpg" alt="Galeri 5" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
-                <div class="gallery-item fade-in" data-src="gallery6.jpg">
-                    <img src="gallery6.jpg" alt="Galeri 6" loading="lazy" />
-                    <div class="overlay-icon"><i class="fas fa-expand"></i></div>
-                </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Dinamis dari config.js -->
             </div>
         </div>
     </section>
@@ -1251,9 +1217,9 @@
                 </p>
             </div>
             <div class="hadiah-box fade-up">
-                <div class="bank">Mandiri</div>
+                <div class="bank" id="bankName">Mandiri</div>
                 <div class="account" id="rekeningDisplay">1760001853603</div>
-                <div class="owner">atas nama <strong>Akbar Hidayatullah</strong></div>
+                <div class="owner" id="bankOwner">atas nama <strong>Akbar Hidayatullah</strong></div>
                 <button class="btn-copy" id="btnCopyRekening">
                     <i class="fas fa-copy" style="margin-right:10px;"></i> Salin Nomor Rekening
                 </button>
@@ -1274,10 +1240,8 @@
                 </p>
             </div>
 
-            <!-- RSVP Form -->
             <div class="rsvp-box fade-up" style="max-width:600px; margin:0 auto; background:var(--white); border-radius:var(--radius); padding:44px 40px; box-shadow:var(--shadow);">
                 
-                <!-- Success message (hidden initially) -->
                 <div id="rsvpSuccess" style="display:none; text-align:center; padding:20px 0;">
                     <div style="font-size:4rem; color:var(--gold);">✅</div>
                     <h3 style="color:var(--primary); margin-top:12px; font-family:'Cormorant Garamond', serif; font-size:1.8rem;">Terima Kasih!</h3>
@@ -1285,7 +1249,6 @@
                     <button onclick="resetRsvpForm()" class="btn-map" style="margin-top:20px;">Kirim RSVP Lain</button>
                 </div>
 
-                <!-- The form -->
                 <form id="rsvpForm" style="display:block;">
                     <div style="margin-bottom:20px;">
                         <label for="rsvpNama" style="display:block; font-weight:500; font-size:0.9rem; color:var(--primary); letter-spacing:0.5px; margin-bottom:6px;">
@@ -1329,7 +1292,6 @@
                                   placeholder="Semoga putra pertama keluarga ini menjadi anak yang shalih dan berbakti..."></textarea>
                     </div>
 
-                    <!-- Hidden phone field -->
                     <input type="hidden" id="rsvpPhone" value="" />
 
                     <button type="submit" id="rsvpSubmitBtn" 
@@ -1349,7 +1311,7 @@
             <div class="footer-text">
                 Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa terbaik untuk putra kami.
             </div>
-            <div class="footer-name">
+            <div class="footer-name" id="footerName">
                 Akbar Hidayatullah <span class="footer-amp">&amp;</span> Nadira Syerlie Nurhaliza
             </div>
             <div class="footer-copy">
@@ -1360,35 +1322,230 @@
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ============================================================
+         RENDER DATA DARI CONFIG.JS
+         ============================================================ -->
     <script>
         (function() {
             'use strict';
 
-            // ============================================================
-            //  1. UTILITY FUNCTIONS
-            // ============================================================
+            // Cek apakah CONFIG tersedia
+            if (typeof CONFIG === 'undefined') {
+                console.warn('⚠️ config.js tidak ditemukan! Gunakan data default di HTML.');
+                return;
+            }
+
+            const { baby, parents, event, bank, meta, nameMeaning, gallery } = CONFIG;
+
+            // ===== 1. OPENING SCREEN =====
+            const babyNameEl = document.getElementById('babyName');
+            if (babyNameEl) babyNameEl.textContent = baby.name;
+
+            const parentsEl = document.getElementById('parentsName');
+            if (parentsEl) {
+                parentsEl.innerHTML = `${baby.childOrder} dari <br /> ${parents.father} <span class="ampersand" style="color:var(--gold);">&amp;</span> ${parents.mother}`;
+            }
+
+            const eventTitleEl = document.getElementById('eventTitle');
+            if (eventTitleEl) eventTitleEl.textContent = event.title;
+
+            // ===== 2. HERO =====
+            const heroBabyName = document.getElementById('heroBabyName');
+            if (heroBabyName) heroBabyName.textContent = baby.name;
+
+            const heroParents = document.getElementById('heroParents');
+            if (heroParents) {
+                heroParents.innerHTML = `${baby.childOrder} <span style="display:inline-block; margin:0 4px;">•</span> ${parents.father} <span class="ampersand">&amp;</span> ${parents.mother}`;
+            }
+
+            // ===== 3. PROFIL KELAHIRAN =====
+            const profilData = [
+                { parent: 'profilTanggal', value: baby.birthDate, sub: baby.birthDateHijri },
+                { parent: 'profilWaktu', value: baby.birthTime, sub: baby.birthTimeNote },
+                { parent: 'profilBerat', value: baby.weight, sub: baby.weightDisplay },
+                { parent: 'profilPanjang', value: baby.length, sub: baby.lengthNote }
+            ];
+
+            profilData.forEach(({ parent, value, sub }) => {
+                const container = document.getElementById(parent);
+                if (container) {
+                    const valEl = container.querySelector('.value');
+                    const subEl = container.querySelector('.value-sub');
+                    if (valEl) valEl.textContent = value;
+                    if (subEl) subEl.textContent = sub;
+                }
+            });
+
+            // ===== 4. MAKNA NAMA =====
+            const maknaTitle = document.getElementById('maknaTitle');
+            if (maknaTitle) maknaTitle.textContent = baby.name;
+
+            const doaText = document.getElementById('doaText');
+            if (doaText) doaText.textContent = baby.prayer;
+
+            const namaGrid = document.getElementById('namaGrid');
+            if (namaGrid && nameMeaning && nameMeaning.length > 0) {
+                namaGrid.innerHTML = '';
+                nameMeaning.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'nama-card fade-up';
+                    card.innerHTML = `
+                        <div class="name">${item.name}</div>
+                        <div class="meaning">${item.meaning}</div>
+                        <div class="desc">${item.description}</div>
+                    `;
+                    namaGrid.appendChild(card);
+                });
+                // Re-run intersection observer for new cards
+                setTimeout(() => {
+                    document.querySelectorAll('.nama-card.fade-up').forEach(el => {
+                        observer.observe(el);
+                    });
+                }, 100);
+            }
+
+            // ===== 5. DETAIL ACARA =====
+            const detailTanggal = document.getElementById('detailTanggal');
+            if (detailTanggal) {
+                const p = detailTanggal.querySelector('p');
+                if (p) p.innerHTML = `<strong>${event.date}</strong>`;
+                const sub = detailTanggal.querySelector('p + p');
+                if (sub) sub.textContent = `${event.time} – ${event.timeEnd}`;
+            }
+
+            const detailWaktu = document.getElementById('detailWaktu');
+            if (detailWaktu) {
+                const p = detailWaktu.querySelector('p');
+                if (p) p.innerHTML = `<strong>${event.time}</strong>`;
+                const sub = detailWaktu.querySelector('p + p');
+                if (sub) sub.textContent = `sampai ${event.timeEnd}`;
+            }
+
+            const detailAlamat = document.getElementById('detailAlamat');
+            if (detailAlamat) {
+                const addr = detailAlamat.querySelector('.address');
+                if (addr) addr.innerHTML = event.address;
+            }
+
+            const mapsLink = document.getElementById('mapsLink');
+            if (mapsLink && event.mapsLink) {
+                mapsLink.href = event.mapsLink;
+            }
+
+            // ===== 6. GALERI =====
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (galleryGrid && gallery && gallery.length > 0) {
+                galleryGrid.innerHTML = '';
+                gallery.forEach((imgSrc, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item fade-in';
+                    // Special layout: 2nd image spans 2 rows, 5th spans 2 columns
+                    if (index === 1) {
+                        item.style.gridRow = 'span 2';
+                        item.style.aspectRatio = 'auto';
+                    }
+                    if (index === 4) {
+                        item.style.gridColumn = 'span 2';
+                        item.style.aspectRatio = 'auto';
+                    }
+                    item.dataset.src = imgSrc;
+                    item.innerHTML = `
+                        <img src="${imgSrc}" alt="Galeri ${index + 1}" loading="lazy" />
+                        <div class="overlay-icon"><i class="fas fa-expand"></i></div>
+                    `;
+                    galleryGrid.appendChild(item);
+                });
+                // Re-bind lightbox events for new items
+                setTimeout(() => {
+                    document.querySelectorAll('.gallery-item').forEach(item => {
+                        item.addEventListener('click', function(e) {
+                            const src = this.dataset.src;
+                            if (src) {
+                                const lightbox = document.getElementById('lightbox');
+                                const lightboxImg = document.getElementById('lightboxImg');
+                                if (lightbox && lightboxImg) {
+                                    lightboxImg.src = src;
+                                    lightbox.classList.add('active');
+                                    document.body.style.overflow = 'hidden';
+                                }
+                            }
+                        });
+                    });
+                }, 100);
+            }
+
+            // ===== 7. HADIAH / REKENING =====
+            const bankNameEl = document.getElementById('bankName');
+            if (bankNameEl) bankNameEl.textContent = bank.name;
+
+            const rekeningDisplay = document.getElementById('rekeningDisplay');
+            if (rekeningDisplay) rekeningDisplay.textContent = bank.accountNumber;
+
+            const bankOwner = document.getElementById('bankOwner');
+            if (bankOwner) {
+                bankOwner.innerHTML = `atas nama <strong>${bank.accountHolder}</strong>`;
+            }
+
+            // ===== 8. FOOTER =====
+            const footerName = document.getElementById('footerName');
+            if (footerName) {
+                footerName.innerHTML = `${parents.father} <span class="footer-amp">&amp;</span> ${parents.mother}`;
+            }
+
+            // ===== 9. META (OG tags) =====
+            const ogImage = document.querySelector('meta[property="og:image"]');
+            if (ogImage && meta.thumbnail) {
+                ogImage.content = meta.baseUrl + meta.thumbnail;
+            }
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc && meta.description) {
+                ogDesc.content = meta.description;
+            }
+            document.title = `Undangan Tasyakuran Aqiqah · ${baby.name}`;
+
+            console.log('✅ Data dari config.js berhasil dimuat!');
+
+        })();
+    </script>
+
+    <!-- ============================================================
+         SCRIPT UTAMA (interaksi)
+         ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ===== 1. UTILITY =====
             function getQueryParam(name) {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get(name);
             }
 
-            // ============================================================
-            //  2. DOM REFS
-            // ============================================================
+            // ===== 2. OPENING SCREEN =====
             const opening = document.getElementById('opening');
             const btnOpen = document.getElementById('btnOpen');
             const audio = document.getElementById('bgMusic');
             const musicBtn = document.getElementById('music-btn');
             const musicIcon = document.getElementById('musicIcon');
 
-            // ============================================================
-            //  3. AUDIO CONTEXT & GAIN (for smooth fade)
-            // ============================================================
+            // Personalized greeting
+            const recipientName = getQueryParam('to');
+            if (recipientName) {
+                const decodedName = decodeURIComponent(recipientName);
+                const openingGreeting = document.getElementById('openingGreeting');
+                const heroGreeting = document.getElementById('heroGreeting');
+                if (openingGreeting) {
+                    openingGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+                }
+                if (heroGreeting) {
+                    heroGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
+                }
+            }
+
+            // ===== 3. AUDIO =====
             let audioCtx = null;
             let gainNode = null;
             let source = null;
-            let isPlaying = false;
 
             function initAudioContext() {
                 if (!audioCtx) {
@@ -1424,23 +1581,6 @@
                 update();
             }
 
-            // ============================================================
-            //  4. OPENING SCREEN
-            // ============================================================
-            // Personalize greeting from URL
-            const recipientName = getQueryParam('to');
-            if (recipientName) {
-                const decodedName = decodeURIComponent(recipientName);
-                const openingGreeting = document.getElementById('openingGreeting');
-                const heroGreeting = document.getElementById('heroGreeting');
-                if (openingGreeting) {
-                    openingGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
-                }
-                if (heroGreeting) {
-                    heroGreeting.innerHTML = `Kepada Yth. <strong>${decodedName}</strong>`;
-                }
-            }
-
             btnOpen.addEventListener('click', function() {
                 opening.classList.add('hide');
                 initAudioContext();
@@ -1449,15 +1589,10 @@
                 });
                 musicBtn.classList.remove('paused');
                 musicIcon.className = 'fas fa-pause';
-                isPlaying = true;
             });
 
-            // ============================================================
-            //  5. MUSIC TOGGLE
-            // ============================================================
             musicBtn.addEventListener('click', function() {
                 initAudioContext();
-
                 if (audio.paused) {
                     audio.play().catch(function(err) {
                         console.warn('Audio play failed:', err);
@@ -1465,21 +1600,17 @@
                     fadeVolume(1, 500);
                     musicBtn.classList.remove('paused');
                     musicIcon.className = 'fas fa-pause';
-                    isPlaying = true;
                 } else {
                     fadeVolume(0, 400);
                     setTimeout(function() {
                         audio.pause();
                         musicBtn.classList.add('paused');
                         musicIcon.className = 'fas fa-play';
-                        isPlaying = false;
                     }, 450);
                 }
             });
 
-            // ============================================================
-            //  6. PAUSE MUSIC WHEN TAB NOT FOCUSED
-            // ============================================================
+            // ===== 4. PAUSE MUSIC WHEN TAB NOT FOCUSED =====
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden) {
                     if (!audio.paused) {
@@ -1507,9 +1638,7 @@
                 }
             });
 
-            // ============================================================
-            //  7. RESTORE STATE ON LOAD
-            // ============================================================
+            // ===== 5. RESTORE STATE =====
             window.addEventListener('load', function() {
                 if (opening.classList.contains('hide')) {
                     if (!audio.paused) {
@@ -1517,23 +1646,18 @@
                         musicIcon.className = 'fas fa-pause';
                         if (!audioCtx) initAudioContext();
                         if (gainNode) gainNode.gain.value = 1;
-                        isPlaying = true;
                     } else {
                         musicBtn.classList.add('paused');
                         musicIcon.className = 'fas fa-play';
-                        isPlaying = false;
                     }
                 } else {
                     audio.pause();
                     musicBtn.classList.add('paused');
                     musicIcon.className = 'fas fa-play';
-                    isPlaying = false;
                 }
             });
 
-            // ============================================================
-            //  8. NAVBAR SCROLL EFFECT
-            // ============================================================
+            // ===== 6. NAVBAR =====
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 40) {
@@ -1543,9 +1667,7 @@
                 }
             });
 
-            // ============================================================
-            //  9. LIGHTBOX (IMAGE VIEWER)
-            // ============================================================
+            // ===== 7. LIGHTBOX =====
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeLightbox = document.getElementById('closeLightbox');
@@ -1581,9 +1703,7 @@
                 }
             });
 
-            // ============================================================
-            //  10. COPY REKENING
-            // ============================================================
+            // ===== 8. COPY REKENING =====
             const btnCopy = document.getElementById('btnCopyRekening');
             const rekeningDisplay = document.getElementById('rekeningDisplay');
             const feedback = document.getElementById('copyFeedback');
@@ -1633,9 +1753,7 @@
                 }
             }
 
-            // ============================================================
-            //  11. INTERSECTION OBSERVER (fade-up, fade-in)
-            // ============================================================
+            // ===== 9. INTERSECTION OBSERVER =====
             const observerOptions = {
                 threshold: 0.15,
                 rootMargin: '0px 0px -30px 0px'
@@ -1654,9 +1772,7 @@
                 observer.observe(el);
             });
 
-            // ============================================================
-            //  12. PARALLAX RINGAN (hero)
-            // ============================================================
+            // ===== 10. PARALLAX =====
             const hero = document.querySelector('.hero');
             window.addEventListener('scroll', function() {
                 const offset = window.pageYOffset;
@@ -1665,9 +1781,7 @@
                 }
             }, { passive: true });
 
-            // ============================================================
-            //  13. SMOOTH SCROLL for anchors
-            // ============================================================
+            // ===== 11. SMOOTH SCROLL =====
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -1680,9 +1794,7 @@
                 });
             });
 
-            // ============================================================
-            //  14. RSVP — KONFIRMASI KEHADIRAN
-            // ============================================================
+            // ===== 12. RSVP =====
             const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycbwuo27BzNDsfwyxpcYK8wP9N6DSUUrXmdyefxc2_zVAoWlRXivYssB4bNEms5UoGo96/exec';
 
             const rsvpForm = document.getElementById('rsvpForm');
@@ -1764,7 +1876,7 @@
                     }
 
                     try {
-                        const response = await fetch(RSVP_API_URL, {
+                        await fetch(RSVP_API_URL, {
                             method: 'POST',
                             mode: 'no-cors',
                             headers: {
@@ -1797,7 +1909,7 @@
                     if (rsvpSuccess) rsvpSuccess.style.display = 'none';
                     rsvpForm.reset();
                     if (jumlahTamuWrapper) jumlahTamuWrapper.style.display = 'none';
-                    
+
                     const guestNameFromUrl = getQueryParam('to');
                     if (guestNameFromUrl && rsvpNama) {
                         rsvpNama.value = decodeURIComponent(guestNameFromUrl);
@@ -1809,9 +1921,9 @@
                         rsvpNama.style.background = '#faf9f6';
                         rsvpNama.style.color = 'inherit';
                     }
-                    
+
                     if (rsvpError) rsvpError.style.display = 'none';
-                    
+
                     const rsvpSection = document.getElementById('rsvp');
                     if (rsvpSection) {
                         rsvpSection.scrollIntoView({ behavior: 'smooth' });
