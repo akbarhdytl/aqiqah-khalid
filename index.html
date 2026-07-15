@@ -179,7 +179,7 @@
             }
         }
 
-        /* ===== LIGHTBOX (IMAGE VIEWER) WITH NAVIGATION ===== */
+        /* ===== LIGHTBOX (IMAGE VIEWER WITH NAV) ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -203,131 +203,118 @@
         .lightbox .lightbox-container {
             position: relative;
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
             max-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .lightbox .lightbox-img {
-            max-width: 100%;
+            max-width: 90vw;
             max-height: 85vh;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-            cursor: default;
             transform: scale(0.92);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            width: auto;
-            height: auto;
+            cursor: default;
         }
         .lightbox.active .lightbox-img {
             transform: scale(1);
         }
-
-        /* Navigation buttons */
-        .lightbox .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.8);
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-        .lightbox .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            color: #fff;
-            transform: translateY(-50%) scale(1.05);
-        }
-        .lightbox .nav-btn.prev {
-            left: 16px;
-        }
-        .lightbox .nav-btn.next {
-            right: 16px;
-        }
-        .lightbox .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(0.9);
-        }
-        .lightbox .nav-btn:disabled:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-50%) scale(0.9);
-        }
-
-        /* Counter indicator */
-        .lightbox .counter {
-            position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px 18px;
-            border-radius: 30px;
-            backdrop-filter: blur(4px);
-            font-weight: 400;
-            z-index: 10;
-        }
-
         .lightbox .close-lightbox {
             position: absolute;
-            top: 20px;
+            top: 16px;
             right: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 2.4rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 2.8rem;
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
             background: none;
             border: none;
             z-index: 10;
             line-height: 1;
-            padding: 8px;
         }
         .lightbox .close-lightbox:hover {
             color: #fff;
             transform: rotate(90deg);
         }
-
-        @media (max-width: 700px) {
-            .lightbox {
-                padding: 12px;
-            }
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: none;
+            color: #fff;
+            font-size: 2.4rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .lightbox .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.08);
+        }
+        .lightbox .nav-prev {
+            left: 12px;
+        }
+        .lightbox .nav-next {
+            right: 12px;
+        }
+        .lightbox .counter {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 2px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        @media (max-width: 768px) {
             .lightbox .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.6rem;
             }
-            .lightbox .nav-btn.prev {
-                left: 6px;
+            .lightbox .nav-prev {
+                left: 4px;
             }
-            .lightbox .nav-btn.next {
-                right: 6px;
+            .lightbox .nav-next {
+                right: 4px;
             }
             .lightbox .close-lightbox {
+                font-size: 2.2rem;
                 top: 12px;
                 right: 16px;
-                font-size: 1.8rem;
             }
             .lightbox .counter {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
                 padding: 4px 14px;
-                bottom: 14px;
+                bottom: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .lightbox .nav-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+            .lightbox .close-lightbox {
+                font-size: 1.8rem;
+                top: 8px;
+                right: 12px;
             }
         }
 
@@ -395,6 +382,7 @@
             color: var(--text);
             letter-spacing: 1px;
             margin-top: 8px;
+            margin-bottom: 28px;
         }
         #opening .parents span {
             display: inline-block;
@@ -403,10 +391,10 @@
         #opening .greeting {
             font-family: 'Inter', sans-serif;
             font-weight: 400;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text);
-            margin-bottom: 4px;
-            opacity: 0.7;
+            margin-bottom: 24px;
+            opacity: 0.8;
             letter-spacing: 1px;
         }
         #opening .greeting strong {
@@ -415,7 +403,6 @@
             font-weight: 600;
         }
         #opening .btn-open {
-            margin-top: 48px;
             padding: 18px 56px;
             background: var(--primary);
             color: var(--white);
@@ -806,7 +793,7 @@
             transform: scale(1.02);
         }
 
-        /* ===== GALERI - GRID 6 ===== */
+        /* ===== GALERI ===== */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -853,7 +840,6 @@
         .gallery-grid .gallery-item:hover .overlay-icon {
             opacity: 1;
         }
-
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -862,7 +848,7 @@
         }
         @media (max-width: 480px) {
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr 1fr;
                 gap: 8px;
             }
         }
@@ -1039,7 +1025,7 @@
                 grid-template-columns: 1fr 1fr;
             }
             #opening .greeting {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             .hero .hero-greeting {
                 font-size: 0.95rem;
@@ -1079,7 +1065,7 @@
                 font-size: 1rem;
             }
             #opening .greeting {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
             .hero .hero-greeting {
                 font-size: 0.85rem;
@@ -1090,19 +1076,21 @@
 <body>
 
     <!-- ===== OPENING SCREEN ===== -->
-   <div class="content">
-    <div class="bismillah font-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-    <div class="title" id="eventTitle">Tasyakuran Aqiqah</div>
-    <div class="baby-name" id="babyName">Khalid Zayn Altair</div>
-    <div class="parents" id="parentsName">
-        Putra Pertama dari <br />
-        Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
+    <div id="opening" role="dialog" aria-modal="true">
+        <div class="arabesque"></div>
+        <div class="content">
+            <div class="bismillah font-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+            <div class="title" id="eventTitle">Tasyakuran Aqiqah</div>
+            <div class="baby-name" id="babyName">Khalid Zayn Altair</div>
+            <div class="parents" id="parentsName">
+                Putra Pertama dari <br />
+                Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
+            </div>
+            <!-- GREETING DI SINI, TEPAT DI ATAS TOMBOL -->
+            <p class="greeting" id="openingGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
+            <button class="btn-open" id="btnOpen">Buka Undangan</button>
+        </div>
     </div>
-    <!-- ===== GREETING DIPINDAH KE SINI ===== -->
-    <p class="greeting" id="openingGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
-    <button class="btn-open" id="btnOpen">Buka Undangan</button>
-</div>
-</div>
 
     <!-- ===== MINI NAVBAR ===== -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
@@ -1130,16 +1118,16 @@
     <!-- ===== LIGHTBOX ===== -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pembesar gambar">
         <button class="close-lightbox" id="closeLightbox" aria-label="Tutup">&times;</button>
+        <button class="nav-btn nav-prev" id="lightboxPrev" aria-label="Gambar sebelumnya">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn nav-next" id="lightboxNext" aria-label="Gambar berikutnya">
+            <i class="fas fa-chevron-right"></i>
+        </button>
         <div class="lightbox-container">
-            <button class="nav-btn prev" id="lightboxPrev" aria-label="Previous">
-                <i class="fas fa-chevron-left"></i>
-            </button>
             <img class="lightbox-img" id="lightboxImg" src="" alt="Gambar diperbesar" />
-            <button class="nav-btn next" id="lightboxNext" aria-label="Next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="counter" id="lightboxCounter">1 / 6</div>
         </div>
+        <span class="counter" id="lightboxCounter">1 / 6</span>
     </div>
 
     <!-- ===== HERO ===== -->
@@ -1483,7 +1471,7 @@
                 // Re-run intersection observer for new cards
                 setTimeout(() => {
                     document.querySelectorAll('.nama-card.fade-up').forEach(el => {
-                        if (window.lightboxObserver) window.lightboxObserver.observe(el);
+                        if (window.observer) window.observer.observe(el);
                     });
                 }, 100);
             }
@@ -1523,7 +1511,6 @@
                 gallery.forEach((imgSrc, index) => {
                     const item = document.createElement('div');
                     item.className = 'gallery-item fade-in';
-                    // Semua gambar square, no special spans
                     item.dataset.src = imgSrc;
                     item.dataset.index = index;
                     item.innerHTML = `
@@ -1537,8 +1524,8 @@
                     document.querySelectorAll('.gallery-item').forEach(item => {
                         item.addEventListener('click', function(e) {
                             const src = this.dataset.src;
-                            const index = parseInt(this.dataset.index, 10);
-                            if (src !== undefined) {
+                            const index = parseInt(this.dataset.index);
+                            if (src) {
                                 openLightbox(index);
                             }
                         });
@@ -1581,7 +1568,7 @@
     </script>
 
     <!-- ============================================================
-         SCRIPT UTAMA (interaksi) + LIGHTBOX NAVIGATION
+         SCRIPT UTAMA (interaksi)
          ============================================================ -->
     <script>
         (function() {
@@ -1745,34 +1732,33 @@
             const closeLightbox = document.getElementById('closeLightbox');
             const prevBtn = document.getElementById('lightboxPrev');
             const nextBtn = document.getElementById('lightboxNext');
-            const counterEl = document.getElementById('lightboxCounter');
+            const counter = document.getElementById('lightboxCounter');
 
             let currentIndex = 0;
-            let galleryItems = [];
+            let galleryImages = [];
 
-            // Get gallery images from the grid
-            function updateGalleryItems() {
+            function getGalleryImages() {
                 const items = document.querySelectorAll('.gallery-item');
-                galleryItems = Array.from(items).map(el => ({
-                    src: el.dataset.src,
-                    el: el
-                }));
+                galleryImages = [];
+                items.forEach(item => {
+                    const src = item.dataset.src;
+                    if (src) galleryImages.push(src);
+                });
             }
 
             function openLightbox(index) {
-                updateGalleryItems();
-                if (galleryItems.length === 0) return;
-                if (index < 0) index = 0;
-                if (index >= galleryItems.length) index = galleryItems.length - 1;
-                currentIndex = index;
-                const item = galleryItems[currentIndex];
-                if (item && item.src) {
-                    lightboxImg.src = item.src;
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    updateCounter();
-                    updateNavButtons();
-                }
+                getGalleryImages();
+                if (galleryImages.length === 0) return;
+                currentIndex = Math.min(index, galleryImages.length - 1);
+                updateLightbox();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function updateLightbox() {
+                if (galleryImages.length === 0) return;
+                lightboxImg.src = galleryImages[currentIndex];
+                counter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
             }
 
             function closeLightboxFn() {
@@ -1780,34 +1766,21 @@
                 document.body.style.overflow = '';
             }
 
-            function updateCounter() {
-                if (counterEl && galleryItems.length > 0) {
-                    counterEl.textContent = `${currentIndex + 1} / ${galleryItems.length}`;
-                }
+            function prevImage(e) {
+                e.stopPropagation();
+                if (galleryImages.length === 0) return;
+                currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                updateLightbox();
             }
 
-            function updateNavButtons() {
-                if (prevBtn) {
-                    prevBtn.disabled = currentIndex === 0;
-                }
-                if (nextBtn) {
-                    nextBtn.disabled = currentIndex === galleryItems.length - 1;
-                }
+            function nextImage(e) {
+                e.stopPropagation();
+                if (galleryImages.length === 0) return;
+                currentIndex = (currentIndex + 1) % galleryImages.length;
+                updateLightbox();
             }
 
-            function goPrev() {
-                if (currentIndex > 0) {
-                    openLightbox(currentIndex - 1);
-                }
-            }
-
-            function goNext() {
-                if (currentIndex < galleryItems.length - 1) {
-                    openLightbox(currentIndex + 1);
-                }
-            }
-
-            // Close handlers
+            // Bind events
             if (closeLightbox) {
                 closeLightbox.addEventListener('click', closeLightboxFn);
             }
@@ -1816,68 +1789,19 @@
                     if (e.target === this) closeLightboxFn();
                 });
             }
-            // Prevent click on image from closing
-            if (lightboxImg) {
-                lightboxImg.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
-
-            // Navigation buttons
             if (prevBtn) {
-                prevBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    goPrev();
-                });
+                prevBtn.addEventListener('click', prevImage);
             }
             if (nextBtn) {
-                nextBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    goNext();
-                });
+                nextBtn.addEventListener('click', nextImage);
             }
 
-            // Keyboard navigation
             document.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
-                if (e.key === 'Escape') {
-                    closeLightboxFn();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    goPrev();
-                } else if (e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    goNext();
-                }
+                if (e.key === 'Escape') closeLightboxFn();
+                if (e.key === 'ArrowLeft') prevImage(e);
+                if (e.key === 'ArrowRight') nextImage(e);
             });
-
-            // Touch swipe support for mobile
-            let touchStartX = 0;
-            let touchEndX = 0;
-
-            if (lightbox) {
-                lightbox.addEventListener('touchstart', function(e) {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-
-                lightbox.addEventListener('touchend', function(e) {
-                    touchEndX = e.changedTouches[0].screenX;
-                    const diff = touchStartX - touchEndX;
-                    if (Math.abs(diff) > 50) { // swipe threshold
-                        if (diff > 0) {
-                            goNext();
-                        } else {
-                            goPrev();
-                        }
-                    }
-                }, { passive: true });
-            }
-
-            // Expose openLightbox globally so gallery items can call it
-            window.openLightbox = openLightbox;
-
-            // Initially update gallery items
-            updateGalleryItems();
 
             // ===== 8. COPY REKENING =====
             const btnCopy = document.getElementById('btnCopyRekening');
@@ -1948,8 +1872,8 @@
                 observer.observe(el);
             });
 
-            // Store observer globally for dynamic elements
-            window.lightboxObserver = observer;
+            // Simpan observer ke global agar bisa dipakai oleh script render data
+            window.observer = observer;
 
             // ===== 10. PARALLAX =====
             const hero = document.querySelector('.hero');
