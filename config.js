@@ -8,13 +8,13 @@ const CONFIG = {
     // ===== DATA PRIBADI BAYI =====
     baby: {
         // Nama lengkap
-        name: 'Khalid Zayn Altair',
+        name: 'Akbar Hidayatullah',
         
         // Nama panggilan (opsional)
-        nickname: 'Khalid',
+        nickname: 'Akbar',
         
         // Tanggal lahir (isi setelah lahir)
-        birthDate: '16 Juli 2026',
+        birthDate: '26 September 2025',
         birthDateHijri: '4 Rabiul Awal 1447 H',
         
         // Waktu lahir
