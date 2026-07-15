@@ -8,14 +8,14 @@ const CONFIG = {
     // ===== DATA PRIBADI BAYI =====
     baby: {
         // Nama lengkap
-        name: 'Akbar Hidayatullah',
+        name: 'Khalid Zayn Altair',
         
         // Nama panggilan (opsional)
-        nickname: 'Akbar',
+        nickname: 'Khalid',
         
         // Tanggal lahir (isi setelah lahir)
-        birthDate: '26 September 2025',
-        birthDateHijri: '4 Rabiul Awal 1447 H',
+        birthDate: '15 Juli 2026',
+        birthDateHijri: '4 Safar 1448 H',
         
         // Waktu lahir
         birthTime: '09.00 WIB',
@@ -23,12 +23,12 @@ const CONFIG = {
         
         // Berat dan panjang
         weight: '3.200 gram',
-        weightDisplay: '3,2 kg',
+        weightDisplay: '',
         length: '49 cm',
         lengthNote: 'saat lahir',
         
         // Tempat lahir (opsional)
-        birthPlace: 'Klinik Kehamilan Sehat Palem Semik',
+        birthPlace: 'Klinik Kehamilan Sehat Palem Semi',
         
         // Urutan anak
         childOrder: 'Putra Pertama',
@@ -50,7 +50,7 @@ const CONFIG = {
         time: '09.00 WIB',
         timeEnd: 'selesai',
         address: 'Jl. Raya PLP Curug<br />Komplek Pos 3 Blok H No. 28',
-        mapsLink: 'https://share.google/XzUBRn385tcdnNJWS'
+        mapsLink: 'https://www.google.com/maps/dir//Shelby+Company+H28,+PH9G%2BH97,+Jl.+Raya+PLP+Curug,+Rancagong,+Curug,+Tangerang+Regency,+Banten+15820/@-6.2766717,106.570193,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x2e69fd0037c9544f:0x13944b613093738c!2m2!1d106.5759389!2d-6.2810649?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D'
     },
 
     // ===== MAKNA NAMA =====
