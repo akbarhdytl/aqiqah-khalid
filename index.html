@@ -179,7 +179,7 @@
             }
         }
 
-        /* ===== LIGHTBOX (IMAGE VIEWER WITH NAV) ===== */
+        /* ===== LIGHTBOX (IMAGE VIEWER) - FIXED ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -193,21 +193,12 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
-            padding: 20px;
-            cursor: default;
+            padding: 40px;
+            cursor: zoom-out;
         }
         .lightbox.active {
             opacity: 1;
             visibility: visible;
-        }
-        .lightbox .lightbox-container {
-            position: relative;
-            width: 100%;
-            max-width: 1100px;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .lightbox .lightbox-img {
             max-width: 90vw;
@@ -215,18 +206,18 @@
             object-fit: contain;
             border-radius: 12px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            cursor: default;
             transform: scale(0.92);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: default;
         }
         .lightbox.active .lightbox-img {
             transform: scale(1);
         }
         .lightbox .close-lightbox {
             position: absolute;
-            top: 16px;
-            right: 24px;
-            color: rgba(255, 255, 255, 0.8);
+            top: 28px;
+            right: 32px;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 2.8rem;
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
@@ -243,78 +234,59 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
             border: none;
-            color: #fff;
-            font-size: 2.4rem;
-            width: 56px;
-            height: 56px;
             border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            transition: background 0.3s, color 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            backdrop-filter: blur(4px);
         }
         .lightbox .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-50%) scale(1.08);
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
-        .lightbox .nav-prev {
-            left: 12px;
+        .lightbox .nav-btn.prev {
+            left: 24px;
         }
-        .lightbox .nav-next {
-            right: 12px;
+        .lightbox .nav-btn.next {
+            right: 24px;
         }
         .lightbox .counter {
             position: absolute;
-            bottom: 24px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 2px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px 20px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
+            letter-spacing: 1px;
+            font-weight: 300;
         }
-        @media (max-width: 768px) {
-            .lightbox .nav-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 1.6rem;
-            }
-            .lightbox .nav-prev {
-                left: 4px;
-            }
-            .lightbox .nav-next {
-                right: 4px;
+        @media (max-width: 600px) {
+            .lightbox {
+                padding: 16px;
             }
             .lightbox .close-lightbox {
-                font-size: 2.2rem;
-                top: 12px;
-                right: 16px;
+                top: 16px;
+                right: 18px;
+                font-size: 2rem;
             }
-            .lightbox .counter {
-                font-size: 0.75rem;
-                padding: 4px 14px;
-                bottom: 16px;
-            }
-        }
-        @media (max-width: 480px) {
             .lightbox .nav-btn {
-                width: 36px;
-                height: 36px;
+                width: 40px;
+                height: 40px;
                 font-size: 1.2rem;
             }
-            .lightbox .close-lightbox {
-                font-size: 1.8rem;
-                top: 8px;
-                right: 12px;
+            .lightbox .nav-btn.prev {
+                left: 8px;
+            }
+            .lightbox .nav-btn.next {
+                right: 8px;
             }
         }
 
@@ -382,7 +354,6 @@
             color: var(--text);
             letter-spacing: 1px;
             margin-top: 8px;
-            margin-bottom: 28px;
         }
         #opening .parents span {
             display: inline-block;
@@ -391,10 +362,10 @@
         #opening .greeting {
             font-family: 'Inter', sans-serif;
             font-weight: 400;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text);
-            margin-bottom: 24px;
-            opacity: 0.8;
+            margin: 24px 0 8px;
+            opacity: 0.7;
             letter-spacing: 1px;
         }
         #opening .greeting strong {
@@ -403,6 +374,7 @@
             font-weight: 600;
         }
         #opening .btn-open {
+            margin-top: 16px;
             padding: 18px 56px;
             background: var(--primary);
             color: var(--white);
@@ -810,6 +782,14 @@
             box-shadow: var(--shadow);
             cursor: pointer;
         }
+        .gallery-grid .gallery-item:nth-child(2) {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+        .gallery-grid .gallery-item:nth-child(5) {
+            grid-column: span 2;
+            aspect-ratio: auto;
+        }
         .gallery-grid .gallery-item img {
             width: 100%;
             height: 100%;
@@ -844,6 +824,14 @@
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
+            }
+            .gallery-grid .gallery-item:nth-child(2) {
+                grid-row: span 1;
+                aspect-ratio: 1 / 1;
+            }
+            .gallery-grid .gallery-item:nth-child(5) {
+                grid-column: span 1;
+                aspect-ratio: 1 / 1;
             }
         }
         @media (max-width: 480px) {
@@ -1025,7 +1013,7 @@
                 grid-template-columns: 1fr 1fr;
             }
             #opening .greeting {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
             .hero .hero-greeting {
                 font-size: 0.95rem;
@@ -1065,7 +1053,7 @@
                 font-size: 1rem;
             }
             #opening .greeting {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             .hero .hero-greeting {
                 font-size: 0.85rem;
@@ -1086,7 +1074,6 @@
                 Putra Pertama dari <br />
                 Akbar Hidayatullah <span class="ampersand" style="color:var(--gold);">&amp;</span> Nadira Syerlie Nurhaliza
             </div>
-            <!-- GREETING DI SINI, TEPAT DI ATAS TOMBOL -->
             <p class="greeting" id="openingGreeting">Kepada Yth. <strong>Bapak/Ibu/Saudara/i</strong></p>
             <button class="btn-open" id="btnOpen">Buka Undangan</button>
         </div>
@@ -1118,16 +1105,10 @@
     <!-- ===== LIGHTBOX ===== -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pembesar gambar">
         <button class="close-lightbox" id="closeLightbox" aria-label="Tutup">&times;</button>
-        <button class="nav-btn nav-prev" id="lightboxPrev" aria-label="Gambar sebelumnya">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="nav-btn nav-next" id="lightboxNext" aria-label="Gambar berikutnya">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        <div class="lightbox-container">
-            <img class="lightbox-img" id="lightboxImg" src="" alt="Gambar diperbesar" />
-        </div>
-        <span class="counter" id="lightboxCounter">1 / 6</span>
+        <button class="nav-btn prev" id="lightboxPrev" aria-label="Gambar sebelumnya">‹</button>
+        <button class="nav-btn next" id="lightboxNext" aria-label="Gambar berikutnya">›</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Gambar diperbesar" />
+        <div class="counter" id="lightboxCounter">1 / 6</div>
     </div>
 
     <!-- ===== HERO ===== -->
@@ -1401,13 +1382,61 @@
         (function() {
             'use strict';
 
-            // Cek apakah CONFIG tersedia
+            // Fallback data jika config.js tidak ditemukan
+            const DEFAULT_CONFIG = {
+                baby: {
+                    name: 'Khalid Zayn Altair',
+                    childOrder: 'Putra Pertama',
+                    birthDate: '19 Juli 2026',
+                    birthDateHijri: '4 Dzulhijjah 1447 H',
+                    birthTime: '09.00 WIB',
+                    birthTimeNote: 'pagi hari',
+                    weight: '3.200 gram',
+                    weightDisplay: '3,2 kg',
+                    length: '49 cm',
+                    lengthNote: 'saat lahir',
+                    prayer: 'Semoga Allah SWT menjadikan Khalid Zayn Altair sebagai anak yang saleh, sehat, cerdas, berakhlak mulia, mencintai Al-Qur\'an, berbakti kepada orang tua, dan menjadi keberkahan bagi umat.'
+                },
+                parents: {
+                    father: 'Akbar Hidayatullah',
+                    mother: 'Nadira Syerlie Nurhaliza'
+                },
+                event: {
+                    title: 'Tasyakuran Aqiqah',
+                    date: 'Minggu, 19 Juli 2026',
+                    time: '09.00 WIB',
+                    timeEnd: 'selesai',
+                    address: 'Jl. Raya PLP Curug<br />Komplek Pos 3 Blok H No. 28',
+                    mapsLink: 'https://share.google/XzUBRn385tcdnNJWS'
+                },
+                bank: {
+                    name: 'Mandiri',
+                    accountNumber: '1760001853603',
+                    accountHolder: 'Akbar Hidayatullah'
+                },
+                meta: {
+                    baseUrl: 'https://akbarhdytl.github.io/aqiqah-khalid/',
+                    thumbnail: 'thumbnail.jpg',
+                    description: 'Undangan Tasyakuran Aqiqah putra pertama dari Akbar Hidayatullah & Nadira Syerlie Nurhaliza. Khalid Zayn Altair.'
+                },
+                nameMeaning: [
+                    { name: 'Khalid', meaning: 'Abadi', description: 'Kekal, langgeng, dan abadi dalam kebaikan.' },
+                    { name: 'Zayn', meaning: 'Keindahan', description: 'Perhiasan, keelokan, dan kemuliaan akhlak.' },
+                    { name: 'Altair', meaning: 'Bintang yang bersinar tinggi', description: 'Cahaya yang terang, petunjuk, dan inspirasi.' }
+                ],
+                gallery: ['gallery1.jpg', 'gallery2.jpg', 'gallery3.jpg', 'gallery4.jpg', 'gallery5.jpg', 'gallery6.jpg']
+            };
+
+            // Gunakan CONFIG jika ada, fallback ke DEFAULT_CONFIG
+            const CONFIG_DATA = (typeof CONFIG !== 'undefined' && CONFIG) ? CONFIG : DEFAULT_CONFIG;
+
             if (typeof CONFIG === 'undefined') {
-                console.warn('⚠️ config.js tidak ditemukan! Gunakan data default di HTML.');
-                return;
+                console.warn('⚠️ config.js tidak ditemukan! Gunakan data default.');
+            } else {
+                console.log('✅ Data dari config.js berhasil dimuat!');
             }
 
-            const { baby, parents, event, bank, meta, nameMeaning, gallery } = CONFIG;
+            const { baby, parents, event, bank, meta, nameMeaning, gallery } = CONFIG_DATA;
 
             // ===== 1. OPENING SCREEN =====
             const babyNameEl = document.getElementById('babyName');
@@ -1468,7 +1497,7 @@
                     `;
                     namaGrid.appendChild(card);
                 });
-                // Re-run intersection observer for new cards
+                // Re-run intersection observer
                 setTimeout(() => {
                     document.querySelectorAll('.nama-card.fade-up').forEach(el => {
                         if (window.observer) window.observer.observe(el);
@@ -1513,24 +1542,20 @@
                     item.className = 'gallery-item fade-in';
                     item.dataset.src = imgSrc;
                     item.dataset.index = index;
+                    if (index === 1) {
+                        item.style.gridRow = 'span 2';
+                        item.style.aspectRatio = 'auto';
+                    }
+                    if (index === 4) {
+                        item.style.gridColumn = 'span 2';
+                        item.style.aspectRatio = 'auto';
+                    }
                     item.innerHTML = `
                         <img src="${imgSrc}" alt="Galeri ${index + 1}" loading="lazy" />
                         <div class="overlay-icon"><i class="fas fa-expand"></i></div>
                     `;
                     galleryGrid.appendChild(item);
                 });
-                // Re-bind lightbox events for new items
-                setTimeout(() => {
-                    document.querySelectorAll('.gallery-item').forEach(item => {
-                        item.addEventListener('click', function(e) {
-                            const src = this.dataset.src;
-                            const index = parseInt(this.dataset.index);
-                            if (src) {
-                                openLightbox(index);
-                            }
-                        });
-                    });
-                }, 100);
             }
 
             // ===== 7. HADIAH / REKENING =====
@@ -1562,13 +1587,13 @@
             }
             document.title = `Undangan Tasyakuran Aqiqah · ${baby.name}`;
 
-            console.log('✅ Data dari config.js berhasil dimuat!');
+            console.log('✅ Data berhasil dirender!');
 
         })();
     </script>
 
     <!-- ============================================================
-         SCRIPT UTAMA (interaksi)
+         SCRIPT UTAMA (interaksi + LIGHTBOX FIXED)
          ============================================================ -->
     <script>
         (function() {
@@ -1726,7 +1751,9 @@
                 }
             });
 
-            // ===== 7. LIGHTBOX WITH NAVIGATION =====
+            // ============================================================
+            //  7. LIGHTBOX — FIXED VERSION (Event Delegation)
+            // ============================================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeLightbox = document.getElementById('closeLightbox');
@@ -1735,73 +1762,121 @@
             const counter = document.getElementById('lightboxCounter');
 
             let currentIndex = 0;
-            let galleryImages = [];
+            let galleryItems = [];
 
+            // ===== Fungsi untuk mendapatkan semua gambar galeri =====
             function getGalleryImages() {
-                const items = document.querySelectorAll('.gallery-item');
-                galleryImages = [];
-                items.forEach(item => {
-                    const src = item.dataset.src;
-                    if (src) galleryImages.push(src);
-                });
+                return document.querySelectorAll('.gallery-item');
             }
 
+            // ===== Buka lightbox dengan index tertentu =====
             function openLightbox(index) {
-                getGalleryImages();
-                if (galleryImages.length === 0) return;
-                currentIndex = Math.min(index, galleryImages.length - 1);
-                updateLightbox();
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                const items = getGalleryImages();
+                if (!items.length) return;
+                galleryItems = items;
+                currentIndex = Math.max(0, Math.min(index, items.length - 1));
+                const src = items[currentIndex].dataset.src;
+                if (src) {
+                    lightboxImg.src = src;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    updateCounter();
+                }
             }
 
-            function updateLightbox() {
-                if (galleryImages.length === 0) return;
-                lightboxImg.src = galleryImages[currentIndex];
-                counter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
-            }
-
+            // ===== Tutup lightbox =====
             function closeLightboxFn() {
                 lightbox.classList.remove('active');
                 document.body.style.overflow = '';
             }
 
-            function prevImage(e) {
-                e.stopPropagation();
-                if (galleryImages.length === 0) return;
-                currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-                updateLightbox();
+            // ===== Navigasi =====
+            function prevImage() {
+                const items = getGalleryImages();
+                if (!items.length) return;
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+                const src = items[currentIndex].dataset.src;
+                if (src) {
+                    lightboxImg.src = src;
+                    updateCounter();
+                }
             }
 
-            function nextImage(e) {
-                e.stopPropagation();
-                if (galleryImages.length === 0) return;
-                currentIndex = (currentIndex + 1) % galleryImages.length;
-                updateLightbox();
+            function nextImage() {
+                const items = getGalleryImages();
+                if (!items.length) return;
+                currentIndex = (currentIndex + 1) % items.length;
+                const src = items[currentIndex].dataset.src;
+                if (src) {
+                    lightboxImg.src = src;
+                    updateCounter();
+                }
             }
 
-            // Bind events
+            function updateCounter() {
+                const items = getGalleryImages();
+                if (counter && items.length) {
+                    counter.textContent = `${currentIndex + 1} / ${items.length}`;
+                }
+            }
+
+            // ===== EVENT DELEGATION: klik pada gallery grid =====
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (galleryGrid) {
+                galleryGrid.addEventListener('click', function(e) {
+                    const item = e.target.closest('.gallery-item');
+                    if (item) {
+                        const index = Array.from(getGalleryImages()).indexOf(item);
+                        if (index !== -1) {
+                            openLightbox(index);
+                        }
+                    }
+                });
+            }
+
+            // ===== Event listeners =====
             if (closeLightbox) {
                 closeLightbox.addEventListener('click', closeLightboxFn);
             }
             if (lightbox) {
                 lightbox.addEventListener('click', function(e) {
-                    if (e.target === this) closeLightboxFn();
+                    if (e.target === this || e.target === lightboxImg) {
+                        closeLightboxFn();
+                    }
                 });
             }
             if (prevBtn) {
-                prevBtn.addEventListener('click', prevImage);
+                prevBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    prevImage();
+                });
             }
             if (nextBtn) {
-                nextBtn.addEventListener('click', nextImage);
+                nextBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nextImage();
+                });
             }
 
+            // ===== Keyboard shortcuts =====
             document.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
-                if (e.key === 'Escape') closeLightboxFn();
-                if (e.key === 'ArrowLeft') prevImage(e);
-                if (e.key === 'ArrowRight') nextImage(e);
+                if (e.key === 'Escape') {
+                    closeLightboxFn();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
             });
+
+            // ===== Update galleryItems saat gambar berubah (mutation observer) =====
+            const observer = new MutationObserver(function() {
+                // Reset counter jika perlu
+            });
+            if (galleryGrid) {
+                observer.observe(galleryGrid, { childList: true, subtree: true });
+            }
 
             // ===== 8. COPY REKENING =====
             const btnCopy = document.getElementById('btnCopyRekening');
@@ -1859,21 +1934,18 @@
                 rootMargin: '0px 0px -30px 0px'
             };
 
-            const observer = new IntersectionObserver(function(entries) {
+            const intersectionObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+                        intersectionObserver.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
             document.querySelectorAll('.fade-up, .fade-in').forEach(function(el) {
-                observer.observe(el);
+                intersectionObserver.observe(el);
             });
-
-            // Simpan observer ke global agar bisa dipakai oleh script render data
-            window.observer = observer;
 
             // ===== 10. PARALLAX =====
             const hero = document.querySelector('.hero');
