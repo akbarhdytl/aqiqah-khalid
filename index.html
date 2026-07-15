@@ -776,19 +776,11 @@
             border-radius: 16px;
             overflow: hidden;
             background: #eae7df;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 1 / 1;  /* semua gambar kotak */
             position: relative;
             transition: transform 0.4s, box-shadow 0.4s;
             box-shadow: var(--shadow);
             cursor: pointer;
-        }
-        .gallery-grid .gallery-item:nth-child(2) {
-            grid-row: span 2;
-            aspect-ratio: auto;
-        }
-        .gallery-grid .gallery-item:nth-child(5) {
-            grid-column: span 2;
-            aspect-ratio: auto;
         }
         .gallery-grid .gallery-item img {
             width: 100%;
@@ -824,14 +816,6 @@
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
-            }
-            .gallery-grid .gallery-item:nth-child(2) {
-                grid-row: span 1;
-                aspect-ratio: 1 / 1;
-            }
-            .gallery-grid .gallery-item:nth-child(5) {
-                grid-column: span 1;
-                aspect-ratio: 1 / 1;
             }
         }
         @media (max-width: 480px) {
@@ -1542,14 +1526,7 @@
                     item.className = 'gallery-item fade-in';
                     item.dataset.src = imgSrc;
                     item.dataset.index = index;
-                    if (index === 1) {
-                        item.style.gridRow = 'span 2';
-                        item.style.aspectRatio = 'auto';
-                    }
-                    if (index === 4) {
-                        item.style.gridColumn = 'span 2';
-                        item.style.aspectRatio = 'auto';
-                    }
+                    // Tidak ada style gridRow/gridColumn agar semua sama
                     item.innerHTML = `
                         <img src="${imgSrc}" alt="Galeri ${index + 1}" loading="lazy" />
                         <div class="overlay-icon"><i class="fas fa-expand"></i></div>
@@ -1764,12 +1741,10 @@
             let currentIndex = 0;
             let galleryItems = [];
 
-            // ===== Fungsi untuk mendapatkan semua gambar galeri =====
             function getGalleryImages() {
                 return document.querySelectorAll('.gallery-item');
             }
 
-            // ===== Buka lightbox dengan index tertentu =====
             function openLightbox(index) {
                 const items = getGalleryImages();
                 if (!items.length) return;
@@ -1784,13 +1759,11 @@
                 }
             }
 
-            // ===== Tutup lightbox =====
             function closeLightboxFn() {
                 lightbox.classList.remove('active');
                 document.body.style.overflow = '';
             }
 
-            // ===== Navigasi =====
             function prevImage() {
                 const items = getGalleryImages();
                 if (!items.length) return;
@@ -1820,7 +1793,7 @@
                 }
             }
 
-            // ===== EVENT DELEGATION: klik pada gallery grid =====
+            // Event delegation on gallery grid
             const galleryGrid = document.getElementById('galleryGrid');
             if (galleryGrid) {
                 galleryGrid.addEventListener('click', function(e) {
@@ -1834,7 +1807,6 @@
                 });
             }
 
-            // ===== Event listeners =====
             if (closeLightbox) {
                 closeLightbox.addEventListener('click', closeLightboxFn);
             }
@@ -1858,7 +1830,6 @@
                 });
             }
 
-            // ===== Keyboard shortcuts =====
             document.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
                 if (e.key === 'Escape') {
@@ -1869,14 +1840,6 @@
                     nextImage();
                 }
             });
-
-            // ===== Update galleryItems saat gambar berubah (mutation observer) =====
-            const observer = new MutationObserver(function() {
-                // Reset counter jika perlu
-            });
-            if (galleryGrid) {
-                observer.observe(galleryGrid, { childList: true, subtree: true });
-            }
 
             // ===== 8. COPY REKENING =====
             const btnCopy = document.getElementById('btnCopyRekening');
