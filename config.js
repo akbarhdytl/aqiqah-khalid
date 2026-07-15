@@ -28,7 +28,7 @@ const CONFIG = {
         lengthNote: 'saat lahir',
         
         // Tempat lahir (opsional)
-        birthPlace: 'Rumah Sakit Ibu dan Anak',
+        birthPlace: 'Klinik Kehamilan Sehat Palem Semik',
         
         // Urutan anak
         childOrder: 'Putra Pertama',
@@ -46,7 +46,7 @@ const CONFIG = {
     // ===== DATA ACARA =====
     event: {
         title: 'Tasyakuran Aqiqah',
-        date: 'Minggu, 19 Juli 2026',
+        date: 'Minggu, 29 Juli 2026',
         time: '09.00 WIB',
         timeEnd: 'selesai',
         address: 'Jl. Raya PLP Curug<br />Komplek Pos 3 Blok H No. 28',
