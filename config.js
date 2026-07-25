@@ -14,21 +14,21 @@ const CONFIG = {
         nickname: 'Khalid',
         
         // Tanggal lahir (isi setelah lahir)
-        birthDate: '15 Juli 2026',
-        birthDateHijri: '4 Safar 1448 H',
+        birthDate: '22 Juli 2026',
+        birthDateHijri: '8 Safar 1448 H',
         
         // Waktu lahir
-        birthTime: '09.00 WIB',
-        birthTimeNote: 'pagi hari',
+        birthTime: '14.52 WIB',
+        birthTimeNote: 'sore hari',
         
         // Berat dan panjang
-        weight: '3.200 gram',
+        weight: '3.180 gram',
         weightDisplay: '',
         length: '49 cm',
         lengthNote: 'saat lahir',
         
         // Tempat lahir (opsional)
-        birthPlace: 'Klinik Kehamilan Sehat Palem Semi',
+        birthPlace: 'Rumah Sakit Siloam Karawaci',
         
         // Urutan anak
         childOrder: 'Putra Pertama',
@@ -46,8 +46,8 @@ const CONFIG = {
     // ===== DATA ACARA =====
     event: {
         title: 'Tasyakuran Aqiqah',
-        date: 'Minggu, 29 Juli 2026',
-        time: '09.00 WIB',
+        date: 'Sabtu, 8 Agustus 2026',
+        time: '11.00 WIB',
         timeEnd: 'selesai',
         address: 'Jl. Raya PLP Curug<br />Komplek Pos 3 Blok H No. 28',
         mapsLink: 'https://www.google.com/maps/dir//Shelby+Company+H28,+PH9G%2BH97,+Jl.+Raya+PLP+Curug,+Rancagong,+Curug,+Tangerang+Regency,+Banten+15820/@-6.2766717,106.570193,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x2e69fd0037c9544f:0x13944b613093738c!2m2!1d106.5759389!2d-6.2810649?entry=ttu&g_ep=EgoyMDI2MDcwNS4wIKXMDSoASAFQAw%3D%3D'
